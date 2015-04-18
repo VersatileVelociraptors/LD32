@@ -6,7 +6,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -16,16 +15,15 @@ public class Level {
 	
 	private int width, height;
 	private int[] tileMap; 
-
-	private ArrayList<Tile> tiles;
 	
 	private int xOffset, yOffset;
 	
 	private int speed;
+	private Tile tiles;
 	
 	public Level(String path){
-		tiles = new ArrayList<Tile>();
 		speed = 5;
+		tiles = new Tile();
 		loadLevel(path);
 	}
 	
@@ -38,27 +36,9 @@ public class Level {
 			tileMap = new int[width * height];
 			
 			line = levelInput.readLine();
-			int xp, yp;
 			
 			for(int i = 0; i < line.length(); i++){
 				tileMap[i] = Integer.parseInt(line.charAt(i) + "");
-				xp = 64*(i%width);
-				yp = 64*(i/width);
-				if(xp < 0 || xp >= LudumDare32.getWidth()) break;
-				if(yp < 0 || yp >= LudumDare32.getHeight()) break;
-				switch(tileMap[i]){
-					case Tile.GRASS_TILE:						
-						tiles.add(new GrassTile(xp, yp));
-					break;
-					case Tile.DIRT_TILE:						
-						tiles.add(new DirtTile(xp, yp ));
-					break;
-					case Tile.FLOOR_TILE:
-						tiles.add(new FloorTile(xp, yp));
-					default:
-						System.out.println(Integer.parseInt(line.charAt(i)+""));
-					break;
-				}
 			}
 
 		} catch (FileNotFoundException e) {
@@ -82,15 +62,28 @@ public class Level {
 	
 	public void render(SpriteBatch sb){
 		sb.begin();
-		for(int i = 0; i < tiles.size(); i++){
-			tiles.get(i).offset(xOffset, yOffset);
-			tiles.get(i).render(sb);
+		int xp, yp;
+		for(int i = 0; i < tileMap.length; i++){
+			xp = 64*(i%width);
+			yp = 64*(i/width);
+			if(xp < 0 || xp >= LudumDare32.getWidth()) break;
+			if(yp < 0 || yp >= LudumDare32.getHeight()) break;
+			switch(tileMap[i]){
+				case Tile.GRASS_TILE:						
+					tiles.render(sb, Tile.GRASS_TILE, xp + xOffset, yp + yOffset);
+				break;
+				case Tile.DIRT_TILE:				
+					tiles.render(sb, Tile.DIRT_TILE, xp + xOffset, yp + yOffset);
+				break;
+				case Tile.FLOOR_TILE:
+					tiles.render(sb, Tile.FLOOR_TILE, xp + xOffset, yp + yOffset);
+				break;
+			}
 		}
 		sb.end();
 	}
 	
 	public void dispose(){
-		for(int i = 0; i < tiles.size(); i++)
-			tiles.get(i).dispose();
+		tiles.dispose();
 	}
 }
