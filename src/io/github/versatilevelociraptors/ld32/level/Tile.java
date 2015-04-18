@@ -24,6 +24,7 @@ public class Tile {
 		textures.add(new Texture("assets/images/grass.png"));
 		textures.add(new Texture("assets/images/dirt.png"));
 		textures.add(new Texture("assets/images/floor.png"));
+		textures.add(new Texture("assets/images/wall.png"));
 	}
 	
 	public void offset(int x, int y){
@@ -33,10 +34,6 @@ public class Tile {
 	
 	public void render(SpriteBatch sb, int texture, int x, int y){
 		sb.draw(textures.get(texture), x, y);
-	}
-	
-	public boolean solid(){
-		return false;
 	}
 	
 	public void dispose(){

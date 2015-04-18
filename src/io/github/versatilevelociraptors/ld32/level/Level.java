@@ -81,6 +81,9 @@ public class Level {
 				case Tile.FLOOR_TILE:
 					tiles.render(sb, Tile.FLOOR_TILE, xp, yp);
 				break;
+				case Tile.WALL_TILE:
+					tiles.render(sb, Tile.WALL_TILE, xp, yp);
+				break;
 			}
 		}
 		sb.end();
@@ -93,7 +96,7 @@ public class Level {
 	public int getHeightInPixels(){
 		return height * Tile.TILE_SIZE;
 	}
-	
+		
 	public int getWidthInTiles(){
 		return width;
 	}
