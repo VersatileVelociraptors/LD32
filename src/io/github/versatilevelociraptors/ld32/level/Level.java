@@ -15,7 +15,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Level {
 	
 	private int width, height;
-	private int[] tile_map; 
+	private int[] tileMap; 
 
 	private ArrayList<Tile> tiles;
 	
@@ -35,30 +35,26 @@ public class Level {
 			width = Integer.parseInt(levelInput.readLine());
 			height = Integer.parseInt(levelInput.readLine());
 			
-			tile_map = new int[width * height];
+			tileMap = new int[width * height];
 			
 			line = levelInput.readLine();
 			int xp, yp;
 			
 			for(int i = 0; i < line.length(); i++){
-				tile_map[i] = Integer.parseInt(line.charAt(i) + "");
-				switch(tile_map[i]){
-					case Tile.GRASS_TILE:
-						xp = 64*(i%width);
-						yp = 64*(i/width);
-						if(xp < 0 || xp >= LudumDare32.getWidth()) break;
-						if(yp < 0 || yp >= LudumDare32.getHeight()) break;
-						
+				tileMap[i] = Integer.parseInt(line.charAt(i) + "");
+				xp = 64*(i%width);
+				yp = 64*(i/width);
+				if(xp < 0 || xp >= LudumDare32.getWidth()) break;
+				if(yp < 0 || yp >= LudumDare32.getHeight()) break;
+				switch(tileMap[i]){
+					case Tile.GRASS_TILE:						
 						tiles.add(new GrassTile(xp, yp));
 					break;
-					case Tile.DIRT_TILE:
-						xp = 64*(i%width);
-						yp = 64*(i/width);
-						if(xp < 0 || xp >= LudumDare32.getWidth()) break;
-						if(yp < 0 || yp >= LudumDare32.getHeight()) break;
-						
+					case Tile.DIRT_TILE:						
 						tiles.add(new DirtTile(xp, yp ));
 					break;
+					case Tile.FLOOR_TILE:
+						tiles.add(new FloorTile(xp, yp));
 					default:
 						System.out.println(Integer.parseInt(line.charAt(i)+""));
 					break;
@@ -91,5 +87,10 @@ public class Level {
 			tiles.get(i).render(sb);
 		}
 		sb.end();
+	}
+	
+	public void dispose(){
+		for(int i = 0; i < tiles.size(); i++)
+			tiles.get(i).dispose();
 	}
 }

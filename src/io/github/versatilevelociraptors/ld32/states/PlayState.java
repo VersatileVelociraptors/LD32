@@ -30,7 +30,7 @@ public class PlayState extends State {
 
 	@Override
 	protected void dispose() {
-
+		level.dispose();
 	}
 
 }

@@ -11,8 +11,8 @@ public abstract class Tile {
 	
 	public static final int GRASS_TILE = 0;
 	public static final int DIRT_TILE = 1;
-	public static final int WALL_TILE = 2;
-	public static final int FLOOR_TILE = 3;
+	public static final int FLOOR_TILE = 2;
+	public static final int WALL_TILE = 3;
 	public static final int WATER_TILE = 4;
 	
 	public Tile(){
@@ -39,4 +39,7 @@ public abstract class Tile {
 		return false;
 	}
 	
+	public void dispose(){
+		sprite.dispose();
+	}
 }
