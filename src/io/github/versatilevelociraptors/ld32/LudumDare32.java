@@ -7,6 +7,7 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.graphics.FPSLogger;
 
 public class LudumDare32  implements ApplicationListener{
 
@@ -17,6 +18,7 @@ public class LudumDare32  implements ApplicationListener{
 
 	public static final float STEP = 1/60f;
 	private static float frameTime;
+	
 
 	private GameStateManager manager;
 
@@ -27,6 +29,11 @@ public class LudumDare32  implements ApplicationListener{
 		configuration.title = TITLE;
 		configuration.width = getWidth();
 		configuration.height = getHeight();
+		
+		//set fps options
+		configuration.vSyncEnabled = false;
+		configuration.foregroundFPS = 0;
+		configuration.backgroundFPS = 0;
 
 		new LwjglApplication(new LudumDare32() , configuration);
 	}
@@ -42,6 +49,7 @@ public class LudumDare32  implements ApplicationListener{
 		frameTime +=  Gdx.graphics.getDeltaTime();
 		while(frameTime >= STEP){
 			frameTime -= STEP;
+			manager.update(STEP);
 			manager.render();
 		}
 	}

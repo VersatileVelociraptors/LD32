@@ -19,6 +19,7 @@ public abstract class State {
 	}
 
 	protected abstract void render();
+	protected abstract void update(float dt);
 	protected abstract void dispose();
 
 }
