@@ -37,8 +37,12 @@ public class Level {
 			
 			line = levelInput.readLine();
 			
-			for(int i = 0; i < line.length(); i++){
-				tileMap[i] = Integer.parseInt(line.charAt(i) + "");
+			for(int i = 0; i < height; i++){
+				for(int j = 0; j < width; j++){
+					tileMap[i*width + j] = Integer.parseInt(line.charAt(j) + "");
+				}
+				System.out.println();
+				line = levelInput.readLine();
 			}
 
 		} catch (FileNotFoundException e) {
@@ -64,19 +68,19 @@ public class Level {
 		sb.begin();
 		int xp, yp;
 		for(int i = 0; i < tileMap.length; i++){
-			xp = 64*(i%width);
-			yp = 64*(i/width);
-			if(xp < 0 || xp >= LudumDare32.getWidth()) break;
-			if(yp < 0 || yp >= LudumDare32.getHeight()) break;
+			xp = Tile.TILE_SIZE*(i%width) + xOffset;
+			yp = Tile.TILE_SIZE*(i/width) + yOffset;
+			if(xp + Tile.TILE_SIZE < 0 || xp >= LudumDare32.getWidth()) continue;
+			if(yp + Tile.TILE_SIZE < 0 || yp >= LudumDare32.getHeight()) continue;
 			switch(tileMap[i]){
 				case Tile.GRASS_TILE:						
-					tiles.render(sb, Tile.GRASS_TILE, xp + xOffset, yp + yOffset);
+					tiles.render(sb, Tile.GRASS_TILE, xp, yp);
 				break;
 				case Tile.DIRT_TILE:				
-					tiles.render(sb, Tile.DIRT_TILE, xp + xOffset, yp + yOffset);
+					tiles.render(sb, Tile.DIRT_TILE, xp, yp);
 				break;
 				case Tile.FLOOR_TILE:
-					tiles.render(sb, Tile.FLOOR_TILE, xp + xOffset, yp + yOffset);
+					tiles.render(sb, Tile.FLOOR_TILE, xp, yp);
 				break;
 			}
 		}

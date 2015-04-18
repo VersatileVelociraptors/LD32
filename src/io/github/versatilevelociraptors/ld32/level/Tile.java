@@ -9,6 +9,8 @@ public class Tile {
 	
 	protected int xOffset, yOffset;
 	
+	public static final int TILE_SIZE = 64;
+	
 	public static final int GRASS_TILE = 0;
 	public static final int DIRT_TILE = 1;
 	public static final int FLOOR_TILE = 2;
