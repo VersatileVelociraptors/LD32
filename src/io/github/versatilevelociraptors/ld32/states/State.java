@@ -13,13 +13,20 @@ public abstract class State {
 
 	protected State(GameStateManager manager) {
 		this.manager = manager;
-		cam = new OrthographicCamera();
-		cam.setToOrtho(false, LudumDare32.getWidth(), LudumDare32.getHeight());
+		cam = new OrthographicCamera(LudumDare32.getWidth() , LudumDare32.getHeight());
 		batch = manager.getSpriteBatch();
 	}
 
-	protected abstract void render(SpriteBatch sb);
+	protected abstract void render();
 	protected abstract void update(float dt);
 	protected abstract void dispose();
+	
+	public OrthographicCamera getCam(){
+		return cam;
+	}
+	
+	public SpriteBatch getBatch(){
+		return batch;
+	}
 
 }

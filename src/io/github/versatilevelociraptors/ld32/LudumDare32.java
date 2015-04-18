@@ -64,7 +64,7 @@ public class LudumDare32  implements ApplicationListener{
 		
 		if(System.currentTimeMillis() - timer > 1000){
 			timer += 1000;
-			System.out.println(updates + "UPS");
+			System.out.println(updates + " UPS");
 			updates = 0;
 		}
 	}

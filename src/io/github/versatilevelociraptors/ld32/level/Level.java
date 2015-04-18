@@ -25,7 +25,10 @@ public class Level {
 		speed = 5;
 		tiles = new Tile();
 		loadLevel(path);
-	}
+		
+		xOffset = -getWidthInPixels()/2;
+		yOffset = -getHeightInPixels()/2;
+}
 	
 	public void loadLevel(String path){
 		String line = null;

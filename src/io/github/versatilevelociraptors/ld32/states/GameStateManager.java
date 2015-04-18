@@ -42,7 +42,7 @@ public class GameStateManager {
 	}
 
 	public void render() {
-		peek().render(batch);
+		peek().render();
 		batch.begin();
 		fps.draw(batch, Gdx.graphics.getFramesPerSecond() + " FPS", 0, LudumDare32.getHeight());
 		batch.end();
