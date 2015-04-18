@@ -18,7 +18,7 @@ public abstract class State {
 		batch = manager.getSpriteBatch();
 	}
 
-	protected abstract void render();
+	protected abstract void render(SpriteBatch sb);
 	protected abstract void update(float dt);
 	protected abstract void dispose();
 

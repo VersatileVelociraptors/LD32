@@ -1,30 +1,28 @@
 package io.github.versatilevelociraptors.ld32.states;
 
+import io.github.versatilevelociraptors.ld32.level.Level;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 
 public class PlayState extends State {
 
-	private TiledMap map;
-	private OrthogonalTiledMapRenderer mapRenderer;
-
+	Level level;
+	
 	public PlayState(GameStateManager manager){
 		super(manager);
-		map = new TmxMapLoader().load("assets/maps/test.tmx");
-		mapRenderer = new OrthogonalTiledMapRenderer(map);
+		level = new Level("assets/levels/level01.lvl");
 	}
 
 	@Override
-	protected void render() {
+	protected void render(SpriteBatch sb) {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		Gdx.gl20.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-		mapRenderer.setView(cam);
-		mapRenderer.render();
+		level.render(sb);
 	}
+	
 	@Override
 	protected void update(float dt){
 
@@ -34,5 +32,6 @@ public class PlayState extends State {
 	protected void dispose() {
 
 	}
+
 }
 

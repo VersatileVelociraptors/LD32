@@ -11,9 +11,9 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 public class LudumDare32  implements ApplicationListener{
 
 	public static final String TITLE = "LudumDare32";
-	private static final int WIDTH = 640;
-	private static final int HEIGHT = 360;
-	public static final double SCALE = 1.5;
+	private static final int WIDTH = 1280;
+	private static final int HEIGHT = 720;
+	public static final double SCALE = 1;
 
 	public static final float STEP = 1/60f;
 	private static float frameTime;
