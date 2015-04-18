@@ -58,7 +58,7 @@ public class LudumDare32  implements ApplicationListener{
 		if(delta >= NS){
 			manager.update((float) delta);
 			updates++;
-			delta = 0;
+			delta -= NS;
 		}
 		manager.render();
 		

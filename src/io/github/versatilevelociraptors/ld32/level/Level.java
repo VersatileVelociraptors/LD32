@@ -41,7 +41,6 @@ public class Level {
 				for(int j = 0; j < width; j++){
 					tileMap[i*width + j] = Integer.parseInt(line.charAt(j) + "");
 				}
-				System.out.println();
 				line = levelInput.readLine();
 			}
 
