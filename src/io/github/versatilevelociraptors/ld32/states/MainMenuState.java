@@ -19,7 +19,6 @@ public class MainMenuState extends State{
 
 	@Override
 	protected void render() {
-		cam.update();
         batch.setProjectionMatrix(cam.combined);
         
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -34,8 +33,10 @@ public class MainMenuState extends State{
 	protected void update(float dt) {
 		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT))
 			playButton.update(Gdx.input.getX(), Gdx.input.getY());
-		if(playButton.isClicked())
+		if(playButton.isClicked()){
+			manager.pop();
 			manager.push(new PlayState(manager));
+		}
 	}
 
 	@Override

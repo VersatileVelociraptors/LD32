@@ -18,6 +18,7 @@ public abstract class Button {
 	
 	public abstract void update(float x, float y);
 	public abstract void render(SpriteBatch sb);
+	
 	public boolean isClicked(){
 		return clicked;
 	}
