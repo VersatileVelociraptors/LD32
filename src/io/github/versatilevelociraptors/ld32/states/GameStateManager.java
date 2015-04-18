@@ -1,11 +1,7 @@
 package io.github.versatilevelociraptors.ld32.states;
 
-import io.github.versatilevelociraptors.ld32.LudumDare32;
-
 import java.util.Stack;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GameStateManager {

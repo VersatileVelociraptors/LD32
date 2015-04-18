@@ -71,7 +71,6 @@ public class Level {
 	}
 	
 	public void render(SpriteBatch sb){
-		sb.begin();
 		int xp, yp;
 		for(int i = 0; i < tileMap.length; i++){
 			xp = Tile.TILE_SIZE*(i%width) + xOffset;
@@ -93,7 +92,6 @@ public class Level {
 				break;
 			}
 		}
-		sb.end();
 	}
 	
 	public int getWidthInPixels(){
