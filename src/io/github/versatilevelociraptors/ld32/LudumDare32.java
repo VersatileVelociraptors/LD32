@@ -1,6 +1,7 @@
 package io.github.versatilevelociraptors.ld32;
 
 import io.github.versatilevelociraptors.ld32.states.GameStateManager;
+import io.github.versatilevelociraptors.ld32.states.MainMenuState;
 import io.github.versatilevelociraptors.ld32.states.PlayState;
 
 import com.badlogic.gdx.ApplicationListener;
@@ -42,7 +43,7 @@ public class LudumDare32  implements ApplicationListener{
 	@Override
 	public void create() {	
 		manager = new GameStateManager();
-		manager.push(new PlayState(manager));
+		manager.push(new MainMenuState(manager));
 		delta = 0;
 		lastTime = System.nanoTime();
 		timer = System.currentTimeMillis();
