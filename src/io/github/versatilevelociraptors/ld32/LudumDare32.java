@@ -20,6 +20,12 @@ public class LudumDare32  implements ApplicationListener{
 	private float frameTime;
 	private long lastUpdate;
 	private GameStateManager manager;
+	
+	private final double ns = 1000000000.0 / 60.0;
+	private double delta;
+	private long lastTime;
+	private int updates;
+	private long timer;
 
 	public static void main(String[] args) {
 		LwjglApplicationConfiguration configuration = new LwjglApplicationConfiguration();
@@ -41,18 +47,29 @@ public class LudumDare32  implements ApplicationListener{
 	public void create() {	
 		manager = new GameStateManager();
 		manager.push(new PlayState(manager));
+		delta = 0;
+		lastTime = System.nanoTime();
+		timer = System.currentTimeMillis();
 	}
 
 	@Override
 	public void render() {
 		frameTime +=  Gdx.graphics.getDeltaTime();
-		if(System.currentTimeMillis() - lastUpdate >= STEP * 1000)
+		long now = System.nanoTime();
+		delta += (now - lastTime)/ns;
+		lastTime = now;
+		
+		while(delta >= 1){
 			manager.update(STEP);
-		lastUpdate = System.currentTimeMillis();
-		while(frameTime >= STEP){
-			frameTime -= STEP;
-			manager.render();
-			System.out.println(System.currentTimeMillis());
+			updates++;
+			delta--;
+		}		
+		manager.render();
+		
+		if(System.currentTimeMillis() - timer > 1000){
+			timer += 1000;
+			System.out.println(updates + "UPS");
+			updates = 0;
 		}
 	}
 
