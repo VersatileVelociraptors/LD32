@@ -86,6 +86,22 @@ public class Level {
 		sb.end();
 	}
 	
+	public int getWidthInPixels(){
+		return width * Tile.TILE_SIZE;
+	}
+	
+	public int getHeightInPixels(){
+		return height * Tile.TILE_SIZE;
+	}
+	
+	public int getWidthInTiles(){
+		return width;
+	}
+	
+	public int getHeightInTiles(){
+		return height;
+	}
+	
 	public void dispose(){
 		tiles.dispose();
 	}
