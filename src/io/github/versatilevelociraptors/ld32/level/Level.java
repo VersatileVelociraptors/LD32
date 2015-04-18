@@ -24,8 +24,7 @@ public class Level {
 	
 	public void loadLevel(String path){
 		String line = null;
-		try {
-			levelInput = new BufferedReader(new FileReader(path));
+		try (BufferedReader levelInput = new BufferedReader(new FileReader(path))){
 			width = Integer.parseInt(levelInput.readLine());
 			height = Integer.parseInt(levelInput.readLine());
 			
