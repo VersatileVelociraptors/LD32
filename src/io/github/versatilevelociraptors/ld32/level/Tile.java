@@ -3,10 +3,10 @@ package io.github.versatilevelociraptors.ld32.level;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class Tile {
+public abstract class Tile {
 	
-	private int x,y;
-	private Texture sprite;
+	protected int x,y;
+	protected Texture sprite;
 	
 	public static final int GRASS_TILE = 0;
 	public static final int DIRT_TILE = 1;
@@ -27,8 +27,7 @@ public class Tile {
 		this.sprite = sprite;
 	}
 	
-	public void render(SpriteBatch sb){
-	}
+	public abstract void render(SpriteBatch sb);
 	
 	public boolean solid(){
 		return false;

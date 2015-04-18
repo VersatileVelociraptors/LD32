@@ -5,12 +5,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class DirtTile extends Tile{
 
-	private int x,y;
-	private Texture sprite;
-
 	public DirtTile(int x, int y) {
-		this.x = x;
-		this.y = y;
+		super(x,y);
 		sprite = new Texture("assets/images/dirt.png");
 	}
 	

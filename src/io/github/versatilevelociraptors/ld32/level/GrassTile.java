@@ -4,13 +4,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GrassTile extends Tile{
-	
-	private int x,y;
-	private Texture sprite;
 
 	public GrassTile(int x, int y) {
-		this.x = x;
-		this.y = y;
+		super(x,y);
 		sprite = new Texture("assets/images/grass.png");
 	}
 	
