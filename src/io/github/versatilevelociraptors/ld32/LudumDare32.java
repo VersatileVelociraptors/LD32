@@ -16,9 +16,9 @@ public class LudumDare32  implements ApplicationListener{
 	public static final double SCALE = 1;
 
 	public static final float STEP = 1/60f;
-	private static float frameTime;
 	
-
+	private float frameTime;
+	private long lastUpdate;
 	private GameStateManager manager;
 
 	public static void main(String[] args) {
@@ -46,10 +46,13 @@ public class LudumDare32  implements ApplicationListener{
 	@Override
 	public void render() {
 		frameTime +=  Gdx.graphics.getDeltaTime();
+		if(System.currentTimeMillis() - lastUpdate >= STEP * 1000)
+			manager.update(STEP);
+		lastUpdate = System.currentTimeMillis();
 		while(frameTime >= STEP){
 			frameTime -= STEP;
-			manager.update(STEP);
 			manager.render();
+			System.out.println(System.currentTimeMillis());
 		}
 	}
 
