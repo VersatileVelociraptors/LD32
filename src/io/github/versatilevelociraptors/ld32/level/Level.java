@@ -21,8 +21,11 @@ public class Level {
 	
 	private int xOffset, yOffset;
 	
+	private int speed;
+	
 	public Level(String path){
 		tiles = new ArrayList<Tile>();
+		speed = 5;
 		loadLevel(path);
 	}
 	
@@ -72,13 +75,13 @@ public class Level {
 	
 	public void update(float dt){
 		if(Gdx.input.isKeyPressed(Input.Keys.A))
-			xOffset++;
+			xOffset+=speed;
 		if(Gdx.input.isKeyPressed(Input.Keys.D))
-			xOffset--;
+			xOffset-=speed;
 		if(Gdx.input.isKeyPressed(Input.Keys.W))
-			yOffset--;
+			yOffset-=speed;
 		if(Gdx.input.isKeyPressed(Input.Keys.S))
-			yOffset++;
+			yOffset+=speed;
 	}
 	
 	public void render(SpriteBatch sb){
