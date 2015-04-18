@@ -2,6 +2,7 @@ package io.github.versatilevelociraptors.ld32.states;
 
 import io.github.versatilevelociraptors.ld32.LudumDare32;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -14,6 +15,8 @@ public abstract class State {
 	protected State(GameStateManager manager) {
 		this.manager = manager;
 		cam = new OrthographicCamera(LudumDare32.getWidth() , LudumDare32.getHeight());
+		cam.setToOrtho(true, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		
 		batch = manager.getSpriteBatch();
 	}
 

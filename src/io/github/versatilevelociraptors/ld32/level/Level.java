@@ -33,16 +33,20 @@ public class Level {
 	public void loadLevel(String path){
 		String line = null;
 		try (BufferedReader levelInput = new BufferedReader(new FileReader(path))){
-			width = Integer.parseInt(levelInput.readLine());
-			height = Integer.parseInt(levelInput.readLine());
+			levelInput.readLine();
+			line = levelInput.readLine();
+			width = Integer.parseInt(line.substring(line.indexOf("=")+1));
+			line = levelInput.readLine();
+			height = Integer.parseInt(line.substring(line.indexOf("=")+1));
 			
 			tileMap = new int[width * height];
 			
+			while(!levelInput.readLine().equals("data=")){}
 			line = levelInput.readLine();
 			
 			for(int i = 0; i < height; i++){
-				for(int j = 0; j < width; j++){
-					tileMap[i*width + j] = Integer.parseInt(line.charAt(j) + "");
+				for(int j = 0; j < width*2; j+=2){
+					tileMap[i*width + j/2] = Integer.parseInt(line.charAt(j) + "") - 1;
 				}
 				line = levelInput.readLine();
 			}
@@ -61,9 +65,9 @@ public class Level {
 		if(Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT))
 			xOffset-=speed;
 		if(Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP))
-			yOffset-=speed;
-		if(Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN))
 			yOffset+=speed;
+		if(Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN))
+			yOffset-=speed;
 	}
 	
 	public void render(SpriteBatch sb){

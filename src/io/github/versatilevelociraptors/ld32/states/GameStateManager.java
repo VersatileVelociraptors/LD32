@@ -12,12 +12,10 @@ public class GameStateManager {
 
 	private SpriteBatch batch;
 	private Stack<State> states;
-	private BitmapFont fps;
 
 	public GameStateManager(){
 		batch = new SpriteBatch();
 		states = new Stack<State>();
-		fps = new BitmapFont();
 	}
 
 	public SpriteBatch getSpriteBatch() { 
@@ -43,9 +41,6 @@ public class GameStateManager {
 
 	public void render() {
 		peek().render();
-		batch.begin();
-		fps.draw(batch, Gdx.graphics.getFramesPerSecond() + " FPS", 0, LudumDare32.getHeight());
-		batch.end();
 	}
 	
 	public void update(float dt){
@@ -56,6 +51,5 @@ public class GameStateManager {
 		for(State state : states)
 			state.dispose();
 		batch.dispose();
-		fps.dispose();
 	}
 }
