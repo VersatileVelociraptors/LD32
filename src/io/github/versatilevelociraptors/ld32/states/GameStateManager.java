@@ -37,12 +37,12 @@ public class GameStateManager {
 		states.pop();
 	}
 
-	public void peek() {
-		states.peek();
+	public State peek() {
+		return states.peek();
 	}
 
 	public void render() {
-		states.peek().render();
+		peek().render();
 		batch.begin();
 		fps.draw(batch, Gdx.graphics.getFramesPerSecond() + " FPS", 0, LudumDare32.getHeight());
 		batch.end();
@@ -53,7 +53,7 @@ public class GameStateManager {
 	}
 
 	public void dispose() {
-		states.peek().dispose();
+		peek().dispose();
 		batch.dispose();
 		fps.dispose();
 	}
