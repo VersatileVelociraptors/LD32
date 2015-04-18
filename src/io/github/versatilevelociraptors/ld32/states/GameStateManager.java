@@ -54,5 +54,7 @@ public class GameStateManager {
 
 	public void dispose() {
 		states.peek().dispose();
+		batch.dispose();
+		fps.dispose();
 	}
 }
