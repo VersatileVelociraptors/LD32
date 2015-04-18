@@ -15,7 +15,7 @@ public class Tile {
 	public static final int WALL_TILE = 3;
 	public static final int WATER_TILE = 4;
 	
-	private static ArrayList<Texture> textures;
+	private ArrayList<Texture> textures;
 	
 	public Tile(){
 		textures = new ArrayList<Texture>();

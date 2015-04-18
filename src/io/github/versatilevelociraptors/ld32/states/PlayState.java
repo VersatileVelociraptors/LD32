@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class PlayState extends State {
 
-	Level level;
+	private Level level;
 	
 	public PlayState(GameStateManager manager){
 		super(manager);

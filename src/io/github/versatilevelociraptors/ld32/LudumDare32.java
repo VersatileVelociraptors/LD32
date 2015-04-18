@@ -4,7 +4,6 @@ import io.github.versatilevelociraptors.ld32.states.GameStateManager;
 import io.github.versatilevelociraptors.ld32.states.PlayState;
 
 import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
@@ -15,13 +14,10 @@ public class LudumDare32  implements ApplicationListener{
 	private static final int HEIGHT = 720;
 	public static final double SCALE = 1;
 
-	public static final float STEP = 1/60f;
+	public static final double NS = 1000000000.0 / 60.0;
 	
-	private float frameTime;
-	private long lastUpdate;
 	private GameStateManager manager;
 	
-	private final double ns = 1000000000.0 / 60.0;
 	private double delta;
 	private long lastTime;
 	private int updates;
@@ -54,16 +50,16 @@ public class LudumDare32  implements ApplicationListener{
 
 	@Override
 	public void render() {
-		frameTime +=  Gdx.graphics.getDeltaTime();
 		long now = System.nanoTime();
-		delta += (now - lastTime)/ns;
+		delta += now - lastTime;
 		lastTime = now;
 		
-		while(delta >= 1){
-			manager.update(STEP);
+		// update if it is time to
+		if(delta >= NS){
+			manager.update((float) delta);
 			updates++;
-			delta--;
-		}		
+			delta = 0;
+		}
 		manager.render();
 		
 		if(System.currentTimeMillis() - timer > 1000){

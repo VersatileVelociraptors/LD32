@@ -50,13 +50,13 @@ public class Level {
 	}
 	
 	public void update(float dt){
-		if(Gdx.input.isKeyPressed(Input.Keys.A))
+		if(Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT))
 			xOffset+=speed;
-		if(Gdx.input.isKeyPressed(Input.Keys.D))
+		if(Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT))
 			xOffset-=speed;
-		if(Gdx.input.isKeyPressed(Input.Keys.W))
+		if(Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP))
 			yOffset-=speed;
-		if(Gdx.input.isKeyPressed(Input.Keys.S))
+		if(Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN))
 			yOffset+=speed;
 	}
 	
