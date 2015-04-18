@@ -2,7 +2,6 @@ package io.github.versatilevelociraptors.ld32;
 
 import io.github.versatilevelociraptors.ld32.states.GameStateManager;
 import io.github.versatilevelociraptors.ld32.states.MainMenuState;
-import io.github.versatilevelociraptors.ld32.states.PlayState;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;

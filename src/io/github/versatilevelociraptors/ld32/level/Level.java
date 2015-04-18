@@ -9,6 +9,7 @@ import java.io.IOException;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Level {
@@ -20,6 +21,7 @@ public class Level {
 	
 	private int speed;
 	private Tile tiles;
+	private Sprite player;
 	
 	public Level(String path){
 		speed = 5;
@@ -28,7 +30,7 @@ public class Level {
 		
 		xOffset = -getWidthInPixels()/2;
 		yOffset = -getHeightInPixels()/2;
-}
+	}
 	
 	public void loadLevel(String path){
 		String line = null;
@@ -60,6 +62,7 @@ public class Level {
 	}
 	
 	public void update(float dt){
+		int oldXOffset = xOffset, oldYOffset = yOffset;
 		if(Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT))
 			xOffset+=speed;
 		if(Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT))
@@ -68,6 +71,19 @@ public class Level {
 			yOffset+=speed;
 		if(Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN))
 			yOffset-=speed;
+		
+		// if we now have a vertex of the player in a wall or a vertex is going out of bounds go back to previous offsets
+		if (inSolid(Math.round(player.getVertices()[0]),
+				Math.round(player.getVertices()[1]))
+				|| inSolid(Math.round(player.getVertices()[5]),
+						Math.round(player.getVertices()[6]))
+				|| inSolid(Math.round(player.getVertices()[10]),
+						Math.round((player.getVertices()[11])))
+				|| inSolid(Math.round(player.getVertices()[15]),
+						Math.round(player.getVertices()[16]))){
+			xOffset = oldXOffset;
+			yOffset = oldYOffset;
+		}
 	}
 	
 	public void render(SpriteBatch sb){
@@ -94,6 +110,40 @@ public class Level {
 		}
 	}
 	
+	/**
+	 * @param xCoordinate
+	 * @param yCoordinate
+	 * @return if the coordinates are in a solid tile or out of bounds
+	 */
+	public boolean inSolid(int xCoordinate, int yCoordinate){
+		int[] solids = {Tile.WALL_TILE, -1};
+		for(int solidTile : solids){
+			if (tileType(Math.round(player.getVertices()[0]),
+					Math.round(player.getVertices()[1])) == solidTile
+					|| tileType(Math.round(player.getVertices()[5]),
+							Math.round(player.getVertices()[6])) == solidTile
+							|| tileType(Math.round(player.getVertices()[10]),
+									Math.round(player.getVertices()[11])) == solidTile
+									|| tileType(Math.round(player.getVertices()[15]),
+											Math.round(player.getVertices()[16])) == solidTile)
+				return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * @param xCoordinate
+	 * @param yCoordinate
+	 * @return the type of tile on those coordinates or -1 if you are out of bounds
+	 */
+	public int tileType(int xCoordinate, int yCoordinate){
+		int index = (xCoordinate - xOffset) / Tile.TILE_SIZE % width + (yCoordinate - yOffset) / Tile.TILE_SIZE * width;
+		if(index < 0 || index >= tileMap.length)
+			return -1;
+		else
+			return tileMap[index];
+	}
+	
 	public int getWidthInPixels(){
 		return width * Tile.TILE_SIZE;
 	}
@@ -109,7 +159,21 @@ public class Level {
 	public int getHeightInTiles(){
 		return height;
 	}
-	
+
+	/**
+	 * @return the player
+	 */
+	public Sprite getPlayer() {
+		return player;
+	}
+
+	/**
+	 * @param player the player to set
+	 */
+	public void setPlayer(Sprite player) {
+		this.player = player;
+	}
+
 	public void dispose(){
 		tiles.dispose();
 	}
