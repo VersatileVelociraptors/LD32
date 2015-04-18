@@ -3,6 +3,7 @@ package io.github.versatilevelociraptors.ld32.states;
 import io.github.versatilevelociraptors.ld32.level.Level;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 
 
@@ -29,6 +30,14 @@ public class PlayState extends State {
 
 	@Override
 	protected void update(float dt){
+		if (Gdx.input.isKeyPressed(Input.Keys.Z)) {
+			if(cam.zoom < 1)
+            cam.zoom += 0.02;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.X)) {
+        	if(cam.zoom > 0.2)
+            cam.zoom -= 0.02;
+        }
 		level.update(dt);
 	}
 
