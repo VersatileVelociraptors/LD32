@@ -8,6 +8,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Level {
@@ -16,8 +18,8 @@ public class Level {
 	private int[] tile_map; 
 
 	private ArrayList<Tile> tiles;
-
-	private BufferedReader levelInput;
+	
+	private int xOffset, yOffset;
 	
 	public Level(String path){
 		tiles = new ArrayList<Tile>();
@@ -68,9 +70,21 @@ public class Level {
 		
 	}
 	
+	public void update(float dt){
+		if(Gdx.input.isKeyPressed(Input.Keys.A))
+			xOffset++;
+		if(Gdx.input.isKeyPressed(Input.Keys.D))
+			xOffset--;
+		if(Gdx.input.isKeyPressed(Input.Keys.W))
+			yOffset--;
+		if(Gdx.input.isKeyPressed(Input.Keys.S))
+			yOffset++;
+	}
+	
 	public void render(SpriteBatch sb){
 		sb.begin();
 		for(int i = 0; i < tiles.size(); i++){
+			tiles.get(i).offset(xOffset, yOffset);
 			tiles.get(i).render(sb);
 		}
 		sb.end();

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public abstract class Tile {
 	
 	protected int x,y;
+	protected int xOffset, yOffset;
 	protected Texture sprite;
 	
 	public static final int GRASS_TILE = 0;
@@ -25,6 +26,11 @@ public abstract class Tile {
 	
 	public Tile(Texture sprite){
 		this.sprite = sprite;
+	}
+	
+	public void offset(int x, int y){
+		this.xOffset = x;
+		this.yOffset = y;
 	}
 	
 	public abstract void render(SpriteBatch sb);

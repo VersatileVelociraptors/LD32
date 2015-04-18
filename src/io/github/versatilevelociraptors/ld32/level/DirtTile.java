@@ -11,7 +11,7 @@ public class DirtTile extends Tile{
 	}
 	
 	public void render(SpriteBatch sb){
-		sb.draw(sprite, x, y);
+		sb.draw(sprite, x + xOffset, y + yOffset);
 	}
 
 

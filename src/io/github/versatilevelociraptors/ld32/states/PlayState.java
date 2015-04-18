@@ -25,7 +25,7 @@ public class PlayState extends State {
 	
 	@Override
 	protected void update(float dt){
-
+		level.update(dt);
 	}
 
 	@Override
