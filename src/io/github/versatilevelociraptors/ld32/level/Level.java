@@ -63,25 +63,33 @@ public class Level {
 	
 	public void update(float dt){
 		int oldXOffset = xOffset, oldYOffset = yOffset;
-		if(Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT))
+		if((Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)))
 			xOffset+=speed;
 		if(Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT))
 			xOffset-=speed;
+		// if we now have a vertex of the player in a wall or a vertex is going out of bounds go back to previous offsets
+		if (inSolid(Math.round(player.getVertices()[0]), Math.round(player.getVertices()[1]))
+				&& xOffset > oldXOffset
+				|| inSolid(Math.round(player.getVertices()[5]), Math.round(player.getVertices()[6]))
+				&& xOffset > oldXOffset
+				|| inSolid(Math.round(player.getVertices()[10]), Math.round((player.getVertices()[11])))
+				&& xOffset < oldXOffset
+				|| inSolid(Math.round(player.getVertices()[15]), Math.round(player.getVertices()[16]))
+				&& xOffset < oldXOffset){
+			xOffset = oldXOffset;
+		}
 		if(Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP))
 			yOffset+=speed;
 		if(Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN))
 			yOffset-=speed;
-		
-		// if we now have a vertex of the player in a wall or a vertex is going out of bounds go back to previous offsets
-		if (inSolid(Math.round(player.getVertices()[0]),
-				Math.round(player.getVertices()[1]))
-				|| inSolid(Math.round(player.getVertices()[5]),
-						Math.round(player.getVertices()[6]))
-				|| inSolid(Math.round(player.getVertices()[10]),
-						Math.round((player.getVertices()[11])))
-				|| inSolid(Math.round(player.getVertices()[15]),
-						Math.round(player.getVertices()[16]))){
-			xOffset = oldXOffset;
+		if(inSolid(Math.round(player.getVertices()[0]), Math.round(player.getVertices()[1]))
+				&& yOffset < oldYOffset
+				|| inSolid(Math.round(player.getVertices()[15]), Math.round(player.getVertices()[16]))
+				&& yOffset > oldYOffset
+				|| inSolid(Math.round(player.getVertices()[5]), Math.round((player.getVertices()[6])))
+				&& yOffset < oldYOffset
+				|| inSolid(Math.round(player.getVertices()[10]), Math.round(player.getVertices()[11]))
+				&& yOffset > oldYOffset){
 			yOffset = oldYOffset;
 		}
 	}
@@ -118,14 +126,7 @@ public class Level {
 	public boolean inSolid(int xCoordinate, int yCoordinate){
 		int[] solids = {Tile.WALL_TILE, -1};
 		for(int solidTile : solids){
-			if (tileType(Math.round(player.getVertices()[0]),
-					Math.round(player.getVertices()[1])) == solidTile
-					|| tileType(Math.round(player.getVertices()[5]),
-							Math.round(player.getVertices()[6])) == solidTile
-							|| tileType(Math.round(player.getVertices()[10]),
-									Math.round(player.getVertices()[11])) == solidTile
-									|| tileType(Math.round(player.getVertices()[15]),
-											Math.round(player.getVertices()[16])) == solidTile)
+			if (tileType(xCoordinate, yCoordinate) == solidTile)
 				return true;
 		}
 		return false;
