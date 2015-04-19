@@ -7,9 +7,11 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 
 public class Level implements Disposable{
@@ -22,6 +24,8 @@ public class Level implements Disposable{
 	private Tile tiles;
 	private Player player;
 	
+	private ArrayList<Vector2> walls;
+	
 	
 	public Level(String path){
 		tiles = new Tile();
@@ -29,6 +33,7 @@ public class Level implements Disposable{
 		
 		xOffset = -getWidthInPixels()/2;
 		yOffset = -getHeightInPixels()/2;
+		
 
 	}
 	
@@ -74,35 +79,13 @@ public class Level implements Disposable{
 		} catch (IOException e){
 			e.printStackTrace();
 		}
+
+		walls = getWalls();
 		
 	}
 	
-	public void update(float dt){
-	//	int oldXOffset = xOffset, oldYOffset = yOffset;
-		
+	public void update(float dt){		
 		player.update(dt);
-
-		// if we now have a vertex of the player in a wall or a vertex is going out of bounds go back to previous offsets
-		/*if (inSolid(Math.round(player.getVertices()[0]), Math.round(player.getVertices()[1]))
-				&& xOffset > oldXOffset
-				|| inSolid(Math.round(player.getVertices()[5]), Math.round(player.getVertices()[6]))
-				&& xOffset > oldXOffset
-				|| inSolid(Math.round(player.getVertices()[10]), Math.round((player.getVertices()[11])))
-				&& xOffset < oldXOffset
-				|| inSolid(Math.round(player.getVertices()[15]), Math.round(player.getVertices()[16]))
-				&& xOffset < oldXOffset){
-			xOffset = oldXOffset;
-		}
-		if(inSolid(Math.round(player.getVertices()[0]), Math.round(player.getVertices()[1]))
-				&& yOffset < oldYOffset
-				|| inSolid(Math.round(player.getVertices()[15]), Math.round(player.getVertices()[16]))
-				&& yOffset > oldYOffset
-				|| inSolid(Math.round(player.getVertices()[5]), Math.round((player.getVertices()[6])))
-				&& yOffset < oldYOffset
-				|| inSolid(Math.round(player.getVertices()[10]), Math.round(player.getVertices()[11]))
-				&& yOffset > oldYOffset){
-			yOffset = oldYOffset;
-		}*/
 	}
 	
 	public void render(SpriteBatch sb){
@@ -129,6 +112,7 @@ public class Level implements Disposable{
 				break;
 			}
 		}
+
 	}
 	
 	/**
@@ -157,6 +141,27 @@ public class Level implements Disposable{
 		else
 			return tileMap[index];
 	}
+	
+	public ArrayList<Vector2> getWalls(){
+		ArrayList<Vector2> indexes = new ArrayList<Vector2>();
+		
+		for(int i = 0; i < width*height; i++){
+			if(tileMap[i] == Tile.WALL_TILE)
+				indexes.add(getTileCoordinates(i));
+		}
+		return indexes;
+	}
+	
+	public Vector2 getTileCoordinates(int index){
+		Vector2 position = new Vector2();
+		int x = index%width;
+		int y = index/width;
+		
+		position.x = x*Tile.TILE_SIZE-xOffset;
+		position.y = y*Tile.TILE_SIZE-yOffset;
+		return position;
+	}
+	
 	
 	public int getWidthInPixels(){
 		return width * Tile.TILE_SIZE;
