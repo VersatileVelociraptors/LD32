@@ -18,6 +18,7 @@ public class Player extends Entity{
 	private ArrayList<Vector2> walls;
 	private Weapon weapon;
 	private final int wallOffset = 1540;
+	private int dir;
 
 	public Player(Level level) {
 		super(new Texture("assets/images/player.png"), level);
@@ -28,6 +29,10 @@ public class Player extends Entity{
 	public void move(int x, int y){
 		level.setXOffset(level.getXOffset() + x);
 		level.setYOffset(level.getYOffset() + y);
+	}
+	
+	public int getDir(){
+		return dir;
 	}
 
 	@Override
@@ -60,13 +65,16 @@ public class Player extends Entity{
 			if(Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)){
 				this.rotate(-this.getRotation() + 315);
 				move(-diag, 0);
+				dir = 7;
 			}
 			else if(Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)){
 				this.rotate(-this.getRotation() + (this.getRotation() + 270)/2);
 				move(-diag, 0);
+				dir = 5;
 			}
 			else if(this.getRotation() != 270){
 				this.rotate(-this.getRotation() + 270);
+				dir = 6;
 			}
 		}
 
@@ -75,13 +83,16 @@ public class Player extends Entity{
 			if(Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)){
 				this.rotate(-this.getRotation() + 315);
 				move(diag, 0);
+				dir = 1;
 			}
 			else if(Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)){
 				this.rotate(-this.getRotation() + (this.getRotation() + 270)/2);
 				move(diag, 0);
+				dir = 3;
 			}
 			else if(this.getRotation() != 90){
 				this.rotate(-this.getRotation() + 90);
+				dir = 2;
 			}
 		}
 
@@ -89,6 +100,7 @@ public class Player extends Entity{
 			move(0,speed);
 			if(this.getRotation() != 0){
 				this.rotate(-this.getRotation() + 0);
+				dir = 0;
 			}
 		}
 
@@ -97,13 +109,15 @@ public class Player extends Entity{
 
 			if(this.getRotation() != 180){
 				this.rotate(-this.getRotation() + 180);
+				dir = 4;
 			}
 		}
 		
 		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
-			Weapon.Projectile potato = weapon.new Projectile(new Texture("assets/images/potato.png"), level, new Vector2(3, 0));
+			Weapon.Projectile potato = weapon.new Projectile(new Texture("assets/images/potato.png"), level, new Vector2(3, 0), 20);
 			potato.setX(this.getX() + 20);
 			potato.setY(this.getY() + 16);
+			potato.setDir(getDir());
 			
 			level.getProjectiles().add(potato);
 		}

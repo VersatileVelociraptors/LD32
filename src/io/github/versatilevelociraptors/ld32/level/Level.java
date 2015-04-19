@@ -27,6 +27,7 @@ public class Level implements Disposable{
 	private Tile tiles;
 	private Player player;
 	private final ArrayList<Weapon.Projectile> projectiles = new ArrayList<Weapon.Projectile>();
+	private final ArrayList<Weapon.Projectile> deadProjectiles = new ArrayList<Weapon.Projectile>();
 	
 	public Level(String path){
 		tiles = new Tile();
@@ -82,9 +83,18 @@ public class Level implements Disposable{
 	
 	public void update(float dt){		
 		player.update(dt);
+		int index = 0;
 		for (Iterator<Projectile> iterator = projectiles.iterator(); iterator.hasNext();) {
-			Weapon.Projectile projectile = iterator.next();			
-			projectile.update(dt);
+			Weapon.Projectile projectile = iterator.next();
+			if(projectile.alive())projectile.update(dt);
+			else deadProjectiles.add(projectile);
+			index++;
+		}
+		for(int i = 0; i < deadProjectiles.size(); i++){
+			if(projectiles.contains(deadProjectiles.get(i))){
+				projectiles.remove(deadProjectiles.get(i));
+				deadProjectiles.remove(i);
+			}
 		}
 	}
 	
@@ -112,7 +122,6 @@ public class Level implements Disposable{
 		}
 		for(Weapon.Projectile projectile : projectiles){
 			projectile.draw(sb);
-			System.out.println(projectile.getX() + " " + projectile.getY());
 		}
 	}
 	

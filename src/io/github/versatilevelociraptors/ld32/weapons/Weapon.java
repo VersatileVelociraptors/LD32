@@ -29,10 +29,15 @@ public abstract class Weapon {
 		
 		private Vector2 vector;
 		private float distanceTravelled;
+		private int dir;
+		private int rotateTimer;
+		private int speed;
 		
-		public Projectile(Texture image, Level level, Vector2 vector) {
+		public Projectile(Texture image, Level level, Vector2 vector, int bulletSpeed) {
 			super(image, level);
 			this.vector = vector;
+			this.speed = bulletSpeed;
+			isAlive = true;
 			ammo--;
 		}
 
@@ -43,11 +48,26 @@ public abstract class Weapon {
 		public boolean alive(){
 			return isAlive;
 		}
+		
+		public void setDir(int dir){
+			this.dir = dir;
+		}
 
 		@Override
 		public void update(float dt) {
+			
+			setRotation(getRotation() - 10);
+			
 			if(distanceTravelled < range){
-				setVector(getVector().add(vector));
+				if(dir == 0)
+					setY(getY() - speed);
+				if(dir == 2)
+					setX(getX() + speed);
+				if(dir == 4)
+					setY(getY() + speed);
+				if(dir == 6)
+					setX(getX() - speed);
+				
 				distanceTravelled += speed;
 			}else{
 				isAlive = false;
