@@ -101,7 +101,11 @@ public class Player extends Entity{
 		}
 		
 		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
-			level.getProjectiles().add(weapon.new Projectile(getTexture(), level, new Vector2(3, 0)));
+			Weapon.Projectile potato = weapon.new Projectile(new Texture("assets/images/potato.png"), level, new Vector2(3, 0));
+			potato.setX(this.getX() + 20);
+			potato.setY(this.getY() + 16);
+			
+			level.getProjectiles().add(potato);
 		}
 	}
 

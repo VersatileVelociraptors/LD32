@@ -112,6 +112,7 @@ public class Level implements Disposable{
 		}
 		for(Weapon.Projectile projectile : projectiles){
 			projectile.draw(sb);
+			System.out.println(projectile.getX() + " " + projectile.getY());
 		}
 	}
 	
