@@ -5,8 +5,9 @@ import java.util.Stack;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Disposable;
 
-public class GameStateManager {
+public class GameStateManager implements Disposable {
 
 	private SpriteBatch batch;
 	private Stack<State> states;

@@ -5,8 +5,9 @@ import io.github.versatilevelociraptors.ld32.LudumDare32;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Disposable;
 
-public abstract class State {
+public abstract class State implements Disposable{
 
 	protected GameStateManager manager;
 	protected SpriteBatch batch;
@@ -22,7 +23,7 @@ public abstract class State {
 
 	protected abstract void render();
 	protected abstract void update(float dt);
-	protected abstract void dispose();
+	public abstract void dispose();
 	
 	public OrthographicCamera getCam(){
 		return cam;
