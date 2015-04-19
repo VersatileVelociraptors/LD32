@@ -23,6 +23,8 @@ public class Level {
 	private Tile tiles;
 	private Sprite player;
 	
+	private int diag;
+	
 	public Level(String path){
 		speed = 10;
 		tiles = new Tile();
@@ -30,6 +32,8 @@ public class Level {
 		
 		xOffset = -getWidthInPixels()/2;
 		yOffset = -getHeightInPixels()/2;
+
+		diag = Math.round((float) ((speed * (Math.sqrt(2)))/2.0f));
 	}
 	
 	public void loadLevel(String path){
@@ -63,57 +67,80 @@ public class Level {
 	
 	public void update(float dt){
 		int oldXOffset = xOffset, oldYOffset = yOffset;
+
 		if(Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)){
 			xOffset+=speed;
-			if(Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP))
+			if(Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)){
 				player.rotate(-player.getRotation() + 315);
-			
-			else if(Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)
-					|| Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN))
+				xOffset-=speed-diag;
+			}
+
+			else if(Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)){
 				player.rotate(-player.getRotation() + (player.getRotation() + 270)/2);
-			else
-			if(player.getRotation() != 270){
-				player.rotate(-player.getRotation() + 270);
+				xOffset-=speed-diag;
+			}
+
+			else{
+
+				if(player.getRotation() != 270){
+					player.rotate(-player.getRotation() + 270);
+				}
 			}
 		}
+
 		if(Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
 			xOffset-=speed;
-			if(Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP))
-				if(Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)
-						|| Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)
-						|| Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-					player.rotate(-player.getRotation() + (player.getRotation() + 90)/2);
+
+			if(Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)
+					|| Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+				player.rotate(-player.getRotation() + (player.getRotation() + 90)/2);
+				xOffset+=speed-diag;
+			}
+
+			else{
+
+				if(player.getRotation() != 90){
+					player.rotate(-player.getRotation() + 90);				
 				}
-				else
-					if(player.getRotation() != 90){
-						player.rotate(-player.getRotation() + 90);				
-					}
+			}
 		}
+
 		if(Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)){
 			yOffset+=speed;
-			if(Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT))
+
+			if(Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)){
 				player.rotate(-player.getRotation() + 315);
-			
-			else if(Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)
-					|| Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-				player.rotate(-player.getRotation() + (player.getRotation() + 0)/2);
+				yOffset-=speed-diag;
 			}
-			else
+
+			else if(Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+				player.rotate(-player.getRotation() + (player.getRotation() + 0)/2);
+				yOffset-=speed-diag;
+			}
+
+			else{
+
 				if(player.getRotation() != 0){
 					player.rotate(-player.getRotation() + 0);				
 				}
+			}
 		}
+
 		if(Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)){
 			yOffset-=speed;
+
 			if(Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)
-					|| Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)
 					|| Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
 				player.rotate(-player.getRotation() + (player.getRotation() + 180)/2);
+				yOffset+=speed-diag;
 			}
-			else
+
+			else{
+
 				if(player.getRotation() != 180){
 					player.rotate(-player.getRotation() + 180);				
 				}
+			}
 		}
 
 		// if we now have a vertex of the player in a wall or a vertex is going out of bounds go back to previous offsets
