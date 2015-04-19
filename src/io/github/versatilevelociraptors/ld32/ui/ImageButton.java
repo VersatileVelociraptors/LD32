@@ -11,11 +11,9 @@ public class ImageButton extends Button{
 
 	@Override
 	public void update(float x, float y) {
-		clicked = false;
-		if(x > this.x && x < this.x + buttonTexture.getWidth()){
-			if(y > this.y && y < this.y + buttonTexture.getHeight()){
-				clicked = true;
-			}
+		if(x > this.x && x < this.x + buttonTexture.getWidth()
+				&& y > this.y && y < this.y + buttonTexture.getHeight()){
+			clicked = true;
 		}
 	}
 
