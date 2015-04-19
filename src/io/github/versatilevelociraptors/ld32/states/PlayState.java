@@ -18,7 +18,7 @@ public class PlayState extends State {
 
 	public PlayState(GameStateManager manager){
 		super(manager);
-		level = new Level("assets/levels/level01.txt");
+		level = new Level("assets/levels/level02.txt");
 		cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
         cam.update();
         player = new Sprite(new Texture(Gdx.files.internal("assets/images/player.png")));

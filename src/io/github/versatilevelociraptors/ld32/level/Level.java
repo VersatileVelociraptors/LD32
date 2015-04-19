@@ -24,7 +24,7 @@ public class Level {
 	private Sprite player;
 	
 	public Level(String path){
-		speed = 5;
+		speed = 10;
 		tiles = new Tile();
 		loadLevel(path);
 		
@@ -83,7 +83,6 @@ public class Level {
 						|| Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)
 						|| Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)){
 					player.rotate(-player.getRotation() + (player.getRotation() + 90)/2);
-					System.out.println(player.getRotation());
 				}
 				else
 					if(player.getRotation() != 90){
@@ -98,7 +97,6 @@ public class Level {
 			else if(Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)
 					|| Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)){
 				player.rotate(-player.getRotation() + (player.getRotation() + 0)/2);
-				System.out.println(player.getRotation());
 			}
 			else
 				if(player.getRotation() != 0){
@@ -111,7 +109,6 @@ public class Level {
 					|| Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)
 					|| Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
 				player.rotate(-player.getRotation() + (player.getRotation() + 180)/2);
-				System.out.println(player.getRotation());
 			}
 			else
 				if(player.getRotation() != 180){
