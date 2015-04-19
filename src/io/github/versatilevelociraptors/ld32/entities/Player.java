@@ -13,12 +13,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-public class Player extends Entity{
+public class Player extends Mob{
 
 	private ArrayList<Vector2> walls;
 	private Weapon weapon;
 	private final int wallOffset = 1540;
 	private int dir;
+	private long lastShotTime;
 
 	public Player(Level level) {
 		super(new Texture("assets/images/player.png"), level);
@@ -113,13 +114,16 @@ public class Player extends Entity{
 			}
 		}
 		
-		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+		// shoot shit
+		if(Gdx.input.isKeyPressed(Input.Keys.SPACE) && System.currentTimeMillis() - lastShotTime >= 1000 / weapon.getRateOfFire()){
 			Weapon.Projectile potato = weapon.new Projectile(new Texture("assets/images/potato.png"), level, new Vector2(3, 0), 20);
 			potato.setX(this.getX() + 20);
 			potato.setY(this.getY() + 16);
 			potato.setDir(getDir());
 			
 			level.getProjectiles().add(potato);
+			
+			lastShotTime = System.currentTimeMillis();
 		}
 	}
 
