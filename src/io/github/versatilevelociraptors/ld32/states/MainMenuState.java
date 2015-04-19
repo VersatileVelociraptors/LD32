@@ -40,7 +40,7 @@ public class MainMenuState extends State{
 	}
 
 	@Override
-	protected void dispose() {
+	public void dispose() {
 		
 	}
 
