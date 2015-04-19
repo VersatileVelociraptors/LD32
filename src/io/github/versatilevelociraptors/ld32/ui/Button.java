@@ -15,6 +15,7 @@ public abstract class Button {
 		this.y = y;
 		this.buttonTexture = new Sprite(texture);
 		clicked = false;
+		buttonTexture.flip(false, true);
 	}
 	
 	public abstract void update(float x, float y);

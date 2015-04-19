@@ -83,8 +83,11 @@ public class Level implements Disposable{
 	public void update(float dt){		
 		player.update(dt);
 		for (Iterator<Projectile> iterator = projectiles.iterator(); iterator.hasNext();) {
-			Weapon.Projectile projectile = iterator.next();			
-			projectile.update(dt);
+			Weapon.Projectile projectile = iterator.next();
+			if(projectile.alive())
+				projectile.update(dt);
+			else
+				iterator.remove();
 		}
 	}
 	
