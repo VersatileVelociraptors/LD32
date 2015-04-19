@@ -2,12 +2,15 @@ package io.github.versatilevelociraptors.ld32.level;
 
 import io.github.versatilevelociraptors.ld32.LudumDare32;
 import io.github.versatilevelociraptors.ld32.entities.Player;
+import io.github.versatilevelociraptors.ld32.weapons.Weapon;
+import io.github.versatilevelociraptors.ld32.weapons.Weapon.Projectile;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -23,9 +26,7 @@ public class Level implements Disposable{
 	
 	private Tile tiles;
 	private Player player;
-	
-	private ArrayList<Vector2> walls;
-	
+	private final ArrayList<Weapon.Projectile> projectiles = new ArrayList<Weapon.Projectile>();
 	
 	public Level(String path){
 		tiles = new Tile();
@@ -33,8 +34,6 @@ public class Level implements Disposable{
 		
 		xOffset = -getWidthInPixels()/2;
 		yOffset = -getHeightInPixels()/2;
-		
-
 	}
 	
 	public int getXOffset(){
@@ -79,18 +78,17 @@ public class Level implements Disposable{
 		} catch (IOException e){
 			e.printStackTrace();
 		}
-
-		walls = getWalls();
-		
 	}
 	
 	public void update(float dt){		
 		player.update(dt);
+		for (Iterator<Projectile> iterator = projectiles.iterator(); iterator.hasNext();) {
+			Weapon.Projectile projectile = iterator.next();			
+			projectile.update(dt);
+		}
 	}
 	
 	public void render(SpriteBatch sb){
-		
-		
 		int xp, yp;
 		for(int i = 0; i < tileMap.length; i++){
 			xp = Tile.TILE_SIZE*(i%width) + xOffset;
@@ -112,7 +110,9 @@ public class Level implements Disposable{
 				break;
 			}
 		}
-
+		for(Weapon.Projectile projectile : projectiles){
+			projectile.draw(sb);
+		}
 	}
 	
 	/**
@@ -191,6 +191,13 @@ public class Level implements Disposable{
 	 */
 	public void setPlayer(Player player) {
 		this.player = player;
+	}
+
+	/**
+	 * @return the projectiles
+	 */
+	public ArrayList<Weapon.Projectile> getProjectiles() {
+		return projectiles;
 	}
 
 	public void dispose(){

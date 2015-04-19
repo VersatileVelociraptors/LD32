@@ -2,6 +2,8 @@ package io.github.versatilevelociraptors.ld32.entities;
 
 import io.github.versatilevelociraptors.ld32.level.Level;
 import io.github.versatilevelociraptors.ld32.level.Tile;
+import io.github.versatilevelociraptors.ld32.weapons.PotatoGun;
+import io.github.versatilevelociraptors.ld32.weapons.Weapon;
 
 import java.util.ArrayList;
 
@@ -13,13 +15,14 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Player extends Entity{
 
-	private int dir;
 	private ArrayList<Vector2> walls;
+	private Weapon weapon;
 	private final int wallOffset = 1540;
 
 	public Player(Level level) {
 		super(new Texture("assets/images/player.png"), level);
 		walls = level.getWalls();
+		weapon = new PotatoGun();
 	}
 
 	public void move(int x, int y){
@@ -29,8 +32,6 @@ public class Player extends Entity{
 
 	@Override
 	public void update(float dt) {
-
-
 		for(Vector2 pos : walls){
 			Rectangle playerRect = new Rectangle(getX(), getY(), getWidth(), getHeight());
 			Rectangle tileRect = new Rectangle(pos.x, pos.y, Tile.TILE_SIZE, Tile.TILE_SIZE);
@@ -59,16 +60,13 @@ public class Player extends Entity{
 			if(Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)){
 				this.rotate(-this.getRotation() + 315);
 				move(-diag, 0);
-				dir = 7;
 			}
 			else if(Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)){
 				this.rotate(-this.getRotation() + (this.getRotation() + 270)/2);
 				move(-diag, 0);
-				dir = 5;
 			}
 			else if(this.getRotation() != 270){
 				this.rotate(-this.getRotation() + 270);
-				dir = 6;
 			}
 		}
 
@@ -77,16 +75,13 @@ public class Player extends Entity{
 			if(Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)){
 				this.rotate(-this.getRotation() + 315);
 				move(diag, 0);
-				dir = 1;
 			}
 			else if(Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)){
 				this.rotate(-this.getRotation() + (this.getRotation() + 270)/2);
 				move(diag, 0);
-				dir = 3;
 			}
 			else if(this.getRotation() != 90){
-				this.rotate(-this.getRotation() + 90);	
-				dir = 2;
+				this.rotate(-this.getRotation() + 90);
 			}
 		}
 
@@ -94,7 +89,6 @@ public class Player extends Entity{
 			move(0,speed);
 			if(this.getRotation() != 0){
 				this.rotate(-this.getRotation() + 0);
-				dir = 0;
 			}
 		}
 
@@ -102,11 +96,13 @@ public class Player extends Entity{
 			move(0,-speed);
 
 			if(this.getRotation() != 180){
-				this.rotate(-this.getRotation() + 180);		
-				dir = 4;
+				this.rotate(-this.getRotation() + 180);
 			}
 		}
+		
+		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+			level.getProjectiles().add(weapon.new Projectile(getTexture(), level, new Vector2(3, 0)));
+		}
 	}
-
 
 }

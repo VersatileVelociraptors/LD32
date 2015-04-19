@@ -9,41 +9,46 @@ import com.badlogic.gdx.math.Vector2;
 public abstract class Weapon {
 	
 	private Texture image;
+	private Texture projectileImage;
 	private final int damage;
 	private final int projectileSpeed;
 	private final int rateOfFire;
 	private final int range;
 	private int ammo;
 
-	public Weapon(int damage, int projectileSpeed, int ammo, int rateOfFire, int range) {
+	public Weapon(int damage, int projectileSpeed, int ammo, int rateOfFire, int range, Texture projectileImage) {
 		this.damage = damage;
 		this.projectileSpeed = projectileSpeed;
 		this.ammo = ammo;
 		this.rateOfFire = rateOfFire;
 		this.range = range;
+		this.projectileImage = projectileImage;
 	}
 
 	public class Projectile extends Entity{
 		
 		private Vector2 vector;
-		private float distanceTraveled;
+		private float distanceTravelled;
 		
-		public Projectile(Texture image, Level level, Vector2 vector, float distanceTravelled) {
+		public Projectile(Texture image, Level level, Vector2 vector) {
 			super(image, level);
 			this.vector = vector;
-			this.distanceTraveled = distanceTravelled;
 			ammo--;
 		}
 
 		public int getDamage(){
 			return damage;
 		}
+		
+		public boolean alive(){
+			return isAlive;
+		}
 
 		@Override
 		public void update(float dt) {
-			if(distanceTraveled < range){
+			if(distanceTravelled < range){
 				setVector(getVector().add(vector));
-				distanceTraveled += speed;
+				distanceTravelled += speed;
 			}else{
 				isAlive = false;
 			}
@@ -119,6 +124,20 @@ public abstract class Weapon {
 	 */
 	public int getRange() {
 		return range;
+	}
+
+	/**
+	 * @return the projectileImage
+	 */
+	public Texture getProjectileImage() {
+		return projectileImage;
+	}
+
+	/**
+	 * @param projectileImage the projectileImage to set
+	 */
+	protected void setProjectileImage(Texture projectileImage) {
+		this.projectileImage = projectileImage;
 	}
 
 }
