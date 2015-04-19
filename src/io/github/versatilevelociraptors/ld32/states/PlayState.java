@@ -1,27 +1,27 @@
 package io.github.versatilevelociraptors.ld32.states;
 
 import io.github.versatilevelociraptors.ld32.LudumDare32;
+import io.github.versatilevelociraptors.ld32.entities.Player;
 import io.github.versatilevelociraptors.ld32.level.Level;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 
 
 public class PlayState extends State {
 
 	private Level level;
-	private Sprite player;
 	private Texture overlay;
+	private Player player;
 
 	public PlayState(GameStateManager manager){
 		super(manager);
 		level = new Level("assets/levels/level02.txt");
 		cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
         cam.update();
-        player = new Sprite(new Texture(Gdx.files.internal("assets/images/player.png")));
+        player = new Player(level);
         player.setCenter(LudumDare32.getWidth() / 2, LudumDare32.getHeight() / 2);
         level.setPlayer(player);
         
@@ -37,8 +37,8 @@ public class PlayState extends State {
 		Gdx.gl20.glClearColor(0.396f, 0.612f, 0.937f, 1.0f);
 		batch.begin();
 		level.render(batch);
-		player.draw(batch);
 		batch.draw(overlay, 0, 0);
+		player.draw(batch);
 		batch.end();
 	}
 

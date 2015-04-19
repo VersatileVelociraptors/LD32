@@ -1,39 +1,51 @@
 package io.github.versatilevelociraptors.ld32.level;
 
 import io.github.versatilevelociraptors.ld32.LudumDare32;
+import io.github.versatilevelociraptors.ld32.entities.Player;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Disposable;
 
-public class Level {
+public class Level implements Disposable{
 	
 	private int width, height;
 	private int[] tileMap; 
 	
 	private int xOffset, yOffset;
 	
-	private int speed;
 	private Tile tiles;
-	private Sprite player;
+	private Player player;
 	
-	private int diag;
 	
 	public Level(String path){
-		speed = 10;
 		tiles = new Tile();
 		loadLevel(path);
 		
 		xOffset = -getWidthInPixels()/2;
 		yOffset = -getHeightInPixels()/2;
 
-		diag = Math.round((float) ((speed * (Math.sqrt(2)))/2.0f));
+	}
+	
+	public int getXOffset(){
+		return xOffset;
+	}
+	
+	public int getYOffset(){
+		return yOffset;
+	}
+	
+	public void setXOffset(int offset){
+		xOffset = offset;
+	}
+	
+	public void setYOffset(int offset){
+		yOffset = offset;
 	}
 	
 	public void loadLevel(String path){
@@ -66,85 +78,12 @@ public class Level {
 	}
 	
 	public void update(float dt){
-		int oldXOffset = xOffset, oldYOffset = yOffset;
-
-		if(Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-			xOffset+=speed;
-			if(Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)){
-				player.rotate(-player.getRotation() + 315);
-				xOffset-=speed-diag;
-			}
-
-			else if(Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-				player.rotate(-player.getRotation() + (player.getRotation() + 270)/2);
-				xOffset-=speed-diag;
-			}
-
-			else{
-
-				if(player.getRotation() != 270){
-					player.rotate(-player.getRotation() + 270);
-				}
-			}
-		}
-
-		if(Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-			xOffset-=speed;
-
-			if(Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)
-					|| Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-				player.rotate(-player.getRotation() + (player.getRotation() + 90)/2);
-				xOffset+=speed-diag;
-			}
-
-			else{
-
-				if(player.getRotation() != 90){
-					player.rotate(-player.getRotation() + 90);				
-				}
-			}
-		}
-
-		if(Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)){
-			yOffset+=speed;
-
-			if(Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-				player.rotate(-player.getRotation() + 315);
-				yOffset-=speed-diag;
-			}
-
-			else if(Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-				player.rotate(-player.getRotation() + (player.getRotation() + 0)/2);
-				yOffset-=speed-diag;
-			}
-
-			else{
-
-				if(player.getRotation() != 0){
-					player.rotate(-player.getRotation() + 0);				
-				}
-			}
-		}
-
-		if(Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-			yOffset-=speed;
-
-			if(Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)
-					|| Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-				player.rotate(-player.getRotation() + (player.getRotation() + 180)/2);
-				yOffset+=speed-diag;
-			}
-
-			else{
-
-				if(player.getRotation() != 180){
-					player.rotate(-player.getRotation() + 180);				
-				}
-			}
-		}
+	//	int oldXOffset = xOffset, oldYOffset = yOffset;
+		
+		player.update(dt);
 
 		// if we now have a vertex of the player in a wall or a vertex is going out of bounds go back to previous offsets
-		if (inSolid(Math.round(player.getVertices()[0]), Math.round(player.getVertices()[1]))
+		/*if (inSolid(Math.round(player.getVertices()[0]), Math.round(player.getVertices()[1]))
 				&& xOffset > oldXOffset
 				|| inSolid(Math.round(player.getVertices()[5]), Math.round(player.getVertices()[6]))
 				&& xOffset > oldXOffset
@@ -163,10 +102,12 @@ public class Level {
 				|| inSolid(Math.round(player.getVertices()[10]), Math.round(player.getVertices()[11]))
 				&& yOffset > oldYOffset){
 			yOffset = oldYOffset;
-		}
+		}*/
 	}
 	
 	public void render(SpriteBatch sb){
+		
+		
 		int xp, yp;
 		for(int i = 0; i < tileMap.length; i++){
 			xp = Tile.TILE_SIZE*(i%width) + xOffset;
@@ -243,7 +184,7 @@ public class Level {
 	/**
 	 * @param player the player to set
 	 */
-	public void setPlayer(Sprite player) {
+	public void setPlayer(Player player) {
 		this.player = player;
 	}
 
