@@ -27,7 +27,6 @@ public class Level implements Disposable{
 	private Tile tiles;
 	private Player player;
 	private final ArrayList<Weapon.Projectile> projectiles = new ArrayList<Weapon.Projectile>();
-	private final ArrayList<Weapon.Projectile> deadProjectiles = new ArrayList<Weapon.Projectile>();
 	
 	public Level(String path){
 		tiles = new Tile();

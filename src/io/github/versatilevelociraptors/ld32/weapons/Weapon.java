@@ -35,7 +35,6 @@ public abstract class Weapon {
 		private Vector2 vector;
 		private float distanceTravelled;
 		private int dir;
-		private int rotateTimer;
 		private int speed;
 		private ArrayList<Vector2> walls;
 		
