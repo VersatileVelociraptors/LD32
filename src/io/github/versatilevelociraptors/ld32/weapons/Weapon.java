@@ -26,12 +26,12 @@ public abstract class Weapon {
 	public class Projectile extends Entity{
 		
 		private Vector2 vector;
-		private float distanceTravelled;
+		private float distanceTraveled;
 		
 		public Projectile(Texture image, Level level, Vector2 vector, float distanceTravelled) {
 			super(image, level);
 			this.vector = vector;
-			this.distanceTravelled = distanceTravelled;
+			this.distanceTraveled = distanceTravelled;
 			ammo--;
 		}
 
@@ -41,9 +41,9 @@ public abstract class Weapon {
 
 		@Override
 		public void update(float dt) {
-			if(distanceTravelled < range){
+			if(distanceTraveled < range){
 				setVector(getVector().add(vector));
-				distanceTravelled += speed;
+				distanceTraveled += speed;
 			}else{
 				isAlive = false;
 			}
