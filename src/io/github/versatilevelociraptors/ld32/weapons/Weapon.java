@@ -4,11 +4,11 @@ import io.github.versatilevelociraptors.ld32.entities.Entity;
 import io.github.versatilevelociraptors.ld32.level.Level;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 
 public abstract class Weapon {
 	
-	private Sprite sprite;
+	private Texture image;
 	private final int damage;
 	private final int projectileSpeed;
 	private final int rateOfFire;
@@ -22,11 +22,17 @@ public abstract class Weapon {
 		this.rateOfFire = rateOfFire;
 		this.range = range;
 	}
-	
+
 	public class Projectile extends Entity{
 		
-		public Projectile(Texture image, Level level) {
+		private Vector2 vector;
+		private float distanceTravelled;
+		
+		public Projectile(Texture image, Level level, Vector2 vector, float distanceTravelled) {
 			super(image, level);
+			this.vector = vector;
+			this.distanceTravelled = distanceTravelled;
+			ammo--;
 		}
 
 		public int getDamage(){
@@ -35,22 +41,42 @@ public abstract class Weapon {
 
 		@Override
 		public void update(float dt) {
-			
+			if(distanceTravelled < range){
+				setVector(getVector().add(vector));
+				distanceTravelled += speed;
+			}else{
+				isAlive = false;
+			}
 		}
+		
+		/**
+		 * @return the vector
+		 */
+		public Vector2 getVector() {
+			return vector;
+		}
+		
+		/**
+		 * @param vector the vector to set
+		 */
+		public void setVector(Vector2 vector) {
+			this.vector = vector;
+		}
+		
 	}
-
+	
 	/**
-	 * @return the sprite
+	 * @return the image
 	 */
-	public Sprite getSprite() {
-		return sprite;
+	public Texture getImage() {
+		return image;
 	}
-
+	
 	/**
-	 * @param sprite the sprite to set
+	 * @param image the image to set
 	 */
-	protected void setSprite(Sprite sprite) {
-		this.sprite = sprite;
+	public void setImage(Texture image) {
+		this.image = image;
 	}
 
 	/**
