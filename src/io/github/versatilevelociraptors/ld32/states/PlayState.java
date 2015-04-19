@@ -14,6 +14,7 @@ public class PlayState extends State {
 
 	private Level level;
 	private Sprite player;
+	private Texture overlay;
 
 	public PlayState(GameStateManager manager){
 		super(manager);
@@ -23,6 +24,8 @@ public class PlayState extends State {
         player = new Sprite(new Texture(Gdx.files.internal("assets/images/player.png")));
         player.setCenter(LudumDare32.getWidth() / 2, LudumDare32.getHeight() / 2);
         level.setPlayer(player);
+        
+        overlay = new Texture("assets/images/overlay.png");
 	}
 
 	@Override
@@ -35,6 +38,7 @@ public class PlayState extends State {
 		batch.begin();
 		level.render(batch);
 		player.draw(batch);
+		batch.draw(overlay, 0, 0);
 		batch.end();
 	}
 
