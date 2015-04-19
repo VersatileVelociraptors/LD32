@@ -22,7 +22,7 @@ public abstract class Entity extends Sprite{
 		this.level = level;
 		
 		speed = 10;
-		diag = Math.round((float) ((speed * (Math.sqrt(2))/2)));
+		diag = Math.round((float) ((speed * (Math.sqrt(2))/4.0)));
 	}
 
 	public abstract void update(float dt);

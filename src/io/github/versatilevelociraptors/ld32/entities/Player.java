@@ -31,7 +31,7 @@ public class Player extends Mob{
 		level.setXOffset(level.getXOffset() + x);
 		level.setYOffset(level.getYOffset() + y);
 	}
-	
+
 	public int getDir(){
 		return dir;
 	}
@@ -62,67 +62,90 @@ public class Player extends Mob{
 		}
 
 		if(Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-			move(speed, 0);
 			if(Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)){
-				this.rotate(-this.getRotation() + 315);
-				move(-diag, 0);
+				this.setRotation(315);
+				move(diag, diag);
 				dir = 7;
 			}
 			else if(Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-				this.rotate(-this.getRotation() + (this.getRotation() + 270)/2);
-				move(-diag, 0);
+				this.setRotation(225);
+				move(diag, -diag);
 				dir = 5;
 			}
-			else if(this.getRotation() != 270){
-				this.rotate(-this.getRotation() + 270);
+			else if(!(Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)) 
+					&& !(Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN))){
+				move(speed, 0);
+				this.setRotation(270);
 				dir = 6;
 			}
 		}
 
 		if(Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-			move(-speed, 0);
 			if(Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)){
-				this.rotate(-this.getRotation() + 315);
-				move(diag, 0);
+				this.setRotation(45);
+				move(-diag, diag);
 				dir = 1;
 			}
 			else if(Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-				this.rotate(-this.getRotation() + (this.getRotation() + 270)/2);
-				move(diag, 0);
+				this.setRotation(135);
+				move(-diag, -diag);
 				dir = 3;
 			}
-			else if(this.getRotation() != 90){
-				this.rotate(-this.getRotation() + 90);
+			else if(!(Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)) 
+					&& !(Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN))){
+				move(-speed, 0);
+				this.setRotation(90);
 				dir = 2;
 			}
 		}
 
 		if(Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)){
-			move(0,speed);
-			if(this.getRotation() != 0){
-				this.rotate(-this.getRotation() + 0);
+			if(Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+				move(diag,diag);
+				this.setRotation(315);
+				dir = 7;
+			}
+			else if(Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+				move(-diag,diag);
+				this.setRotation(45);
+				dir = 1;
+			}
+			else if(!(Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) 
+					&& !(Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT))){
+				move(0,speed);
+				this.setRotation(0);
 				dir = 0;
 			}
 		}
 
 		if(Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-			move(0,-speed);
-
-			if(this.getRotation() != 180){
-				this.rotate(-this.getRotation() + 180);
+			if(Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+				move(diag,-diag);
+				this.setRotation(225);
+				dir = 5;
+			}
+			else if(Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+				move(-diag,-diag);
+				this.setRotation(135);
+				dir = 3;
+			}
+			else if(!(Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT))
+					&& !(Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT))){
+				move(0,-speed);
+				this.setRotation(180);
 				dir = 4;
 			}
 		}
-		
+
 		// shoot shit
 		if(Gdx.input.isKeyPressed(Input.Keys.SPACE) && System.currentTimeMillis() - lastShotTime >= 1000 / weapon.getRateOfFire()){
 			Weapon.Projectile potato = weapon.new Projectile(new Texture("assets/images/potato.png"), level, new Vector2(3, 0), 20);
 			potato.setX(this.getX() + 20);
 			potato.setY(this.getY() + 16);
 			potato.setDir(getDir());
-			
+
 			level.getProjectiles().add(potato);
-			
+
 			lastShotTime = System.currentTimeMillis();
 		}
 	}
