@@ -42,11 +42,14 @@ public class AudioManager implements Disposable {
 	public void play(int i){
 		if(i<musics.size())
 			musics.get(i).play();
+			musics.get(i).setVolume(.5f);
 	}
 
 	public void loop(int i){
 		if(i<musics.size())
+			musics.get(i).play();
 			musics.get(i).setLooping(true);
+			musics.get(i).setVolume(.5f);
 	}
 
 	public void stop(int i){
