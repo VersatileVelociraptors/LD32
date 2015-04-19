@@ -27,6 +27,7 @@ public class Level implements Disposable{
 	private Tile tiles;
 	private Player player;
 	private final ArrayList<Weapon.Projectile> projectiles = new ArrayList<Weapon.Projectile>();
+	private final ArrayList<Weapon.Projectile> deadProjectiles = new ArrayList<Weapon.Projectile>();
 	
 	public Level(String path){
 		tiles = new Tile();
@@ -115,7 +116,6 @@ public class Level implements Disposable{
 		}
 		for(Weapon.Projectile projectile : projectiles){
 			projectile.draw(sb);
-			System.out.println(projectile.getX() + " " + projectile.getY());
 		}
 	}
 	
