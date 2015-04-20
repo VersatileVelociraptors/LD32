@@ -21,7 +21,7 @@ public abstract class Entity extends Sprite{
 		super(image);
 		this.level = level;
 		
-		diag = Math.round((float) ((speed * (Math.sqrt(2))/4.0)));
+		diag = (int)((speed * (Math.sqrt(2))/4));
 	}
 
 	public abstract void update(float dt);
