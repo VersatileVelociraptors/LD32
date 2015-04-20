@@ -17,7 +17,6 @@ public class Tile {
 	public static final int WALL_TILE = 3;
 	public static final int BOX_TILE = 4;
 	public static final int SNOOP_TILE = 5;
-	public static final int WATER_TILE = 6;
 	
 	private ArrayList<Texture> textures;
 	

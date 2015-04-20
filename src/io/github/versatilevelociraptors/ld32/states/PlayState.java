@@ -79,7 +79,9 @@ public class PlayState extends State {
 			fourtwenty = true;
 		}
 		
+		
 		if(!level.getPlayer().isAlive()){
+			music.stop("420");
 			manager.set(new EndGameState(manager, level));
 			music.stop();
 		}
