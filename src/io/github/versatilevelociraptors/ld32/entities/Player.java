@@ -154,6 +154,11 @@ public class Player extends Mob{
 
 			lastShotTime = System.currentTimeMillis();
 		}
+		
+		// use weapon box
+		if(level.tileType((int)getX(), (int)getY()) == Tile.BOX_TILE){
+			weapon = new PotatoGun();
+		}
 	}
 
 	/**

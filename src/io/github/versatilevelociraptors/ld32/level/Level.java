@@ -12,8 +12,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 
@@ -26,6 +29,7 @@ public class Level implements Disposable{
 	
 	private Tile tiles;
 	private Player player;
+	private int kills;
 	private final ArrayList<Velociraptor> enemies = new ArrayList<Velociraptor>();
 	private final ArrayList<Weapon.Projectile> projectiles = new ArrayList<Weapon.Projectile>();
 	
@@ -95,10 +99,12 @@ public class Level implements Disposable{
 		// update all the velociraptors if they are still alive
 		for(Iterator<Velociraptor> iterator = enemies.iterator(); iterator.hasNext();){
 			Velociraptor enemy = iterator.next();
-			if(enemy.isAlive())
+			if(enemy.isAlive()){
 				enemy.update(dt);
-			else
+			}else{
 				iterator.remove();
+				kills++;
+			}
 		}
 	}
 	
@@ -109,20 +115,7 @@ public class Level implements Disposable{
 			yp = Tile.TILE_SIZE*(i/width) + yOffset;
 			if(xp + Tile.TILE_SIZE < 0 || xp >= LudumDare32.getWidth()) continue;
 			if(yp + Tile.TILE_SIZE < 0 || yp >= LudumDare32.getHeight()) continue;
-			switch(tileMap[i]){
-				case Tile.GRASS_TILE:						
-					tiles.render(sb, Tile.GRASS_TILE, xp, yp);
-				break;
-				case Tile.DIRT_TILE:				
-					tiles.render(sb, Tile.DIRT_TILE, xp, yp);
-				break;
-				case Tile.FLOOR_TILE:
-					tiles.render(sb, Tile.FLOOR_TILE, xp, yp);
-				break;
-				case Tile.WALL_TILE:
-					tiles.render(sb, Tile.WALL_TILE, xp, yp);
-				break;
-			}
+			tiles.render(sb, tileMap[i], xp, yp);// render the tile
 		}
 		for(Weapon.Projectile projectile : projectiles){
 			projectile.draw(sb);
@@ -166,6 +159,18 @@ public class Level implements Disposable{
 		for(int i = 0; i < width*height; i++){
 			if(tileMap[i] == Tile.WALL_TILE)
 				indexes.add(getTileCoordinates(i));
+		}
+		return indexes;
+	}
+	
+	public List<Rectangle> boxes(){
+		LinkedList<Rectangle> indexes = new LinkedList<Rectangle>();
+		
+		for(int i = 0; i < width * height; i++){
+			if(tileMap[i] == Tile.BOX_TILE){
+				Vector2 vector = getTileCoordinates(i);
+				indexes.add(new Rectangle(vector.x, vector.y, Tile.TILE_SIZE, Tile.TILE_SIZE));
+			}
 		}
 		return indexes;
 	}
@@ -223,6 +228,20 @@ public class Level implements Disposable{
 	 */
 	public ArrayList<Velociraptor> getEnemies() {
 		return enemies;
+	}
+
+	/**
+	 * @return the kills
+	 */
+	public int getKills() {
+		return kills;
+	}
+
+	/**
+	 * @param kills the kills to set
+	 */
+	public void setKills(int kills) {
+		this.kills = kills;
 	}
 
 	public void dispose(){

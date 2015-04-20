@@ -1,9 +1,11 @@
 package io.github.versatilevelociraptors.ld32.states;
 
 import io.github.versatilevelociraptors.ld32.LudumDare32;
+import io.github.versatilevelociraptors.ld32.audio.MusicManager;
 import io.github.versatilevelociraptors.ld32.entities.Player;
 import io.github.versatilevelociraptors.ld32.entities.Velociraptor;
 import io.github.versatilevelociraptors.ld32.level.Level;
+import io.github.versatilevelociraptors.ld32.level.Tile;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -19,6 +21,7 @@ public class PlayState extends State {
 	private Player player;
 	private BitmapFont font;
 	private Velociraptor testEnemy;
+	private MusicManager music;
 	
 	public PlayState(GameStateManager manager){
 		super(manager);
@@ -33,6 +36,9 @@ public class PlayState extends State {
         
         overlay = new Texture("assets/images/overlay.png");
         font = new BitmapFont(true);
+        
+        music = new MusicManager();
+        music.addAllMusicInAssets();
 	}
 
 	@Override
@@ -50,6 +56,7 @@ public class PlayState extends State {
 		font.draw(batch," Weapon: " + player.getWeapon().getName(), 0, weaponY - 30);
 		font.draw(batch, " Ammo: " + player.getWeapon().getAmmo(), 0, weaponY - 50);
 		font.draw(batch, " Health: " + player.getHealth(), 0, weaponY + - 70);
+		font.draw(batch, " Points: " + level.getKills(), 0, weaponY - 90);
 		player.draw(batch);
 		batch.end();
 	}
@@ -65,6 +72,11 @@ public class PlayState extends State {
             cam.zoom -= 0.02;
         }
 		level.update(dt);
+		
+		if(level.tileType((int)player.getX(), (int)player.getY()) == Tile.SNOOP_TILE){
+			music.play("420");
+		}
+		
 		if(!level.getPlayer().isAlive()){
 			manager.set(new EndGameState(manager));
 		}
