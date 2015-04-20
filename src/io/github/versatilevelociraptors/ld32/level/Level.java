@@ -34,6 +34,12 @@ public class Level implements Disposable{
 		tiles = new Tile();
 		loadLevel(path);
 		
+		enemyTest = new Velociraptor(this);
+		float randomX = (float) Math.random() * (2150 - 750) + 750;
+		float randomY = (float) Math.random() * (2150 - 750) + 750;
+		enemyTest.setxOnMap(randomX);
+		enemyTest.setyOnMap(randomY);
+		
 		xOffset = -getWidthInPixels()/2;
 		yOffset = -getHeightInPixels()/2;
 	}
@@ -119,8 +125,11 @@ public class Level implements Disposable{
 		for(Weapon.Projectile projectile : projectiles){
 			projectile.draw(sb);
 		}
-		enemyTest.setX(1500 + xOffset);
-		enemyTest.setY(1500 + yOffset);
+		
+		// (2150, 2150)-lower right (750, 2150)-lower left (750, 750)-upper left (2150, 750)-upper right
+		float enemyX = enemyTest.getxOnMap() + xOffset, enemyY = enemyTest.getyOnMap() + yOffset;
+		enemyTest.setX(enemyX);
+		enemyTest.setY(enemyY);
 		enemyTest.draw(sb);
 	}
 	
