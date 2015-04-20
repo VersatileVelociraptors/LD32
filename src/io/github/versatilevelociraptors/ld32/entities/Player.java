@@ -1,5 +1,6 @@
 package io.github.versatilevelociraptors.ld32.entities;
 
+import io.github.versatilevelociraptors.ld32.audio.SoundManager;
 import io.github.versatilevelociraptors.ld32.level.Level;
 import io.github.versatilevelociraptors.ld32.level.Tile;
 import io.github.versatilevelociraptors.ld32.weapons.PotatoGun;
@@ -20,11 +21,14 @@ public class Player extends Mob{
 	private final int wallOffset = 1540;
 	private int dir;
 	private long lastShotTime;
+	private SoundManager sounds;
 
 	public Player(Level level) {
 		super(new Texture("assets/images/player.png"), level);
 		walls = level.getWalls();
 		weapon = new PotatoGun();
+		sounds = new SoundManager();
+		sounds.addAllSoundInAssets();
 	}
 
 	public void move(int x, int y){
@@ -143,7 +147,9 @@ public class Player extends Mob{
 			potato.setX(this.getX() + 20);
 			potato.setY(this.getY() + 16);
 			potato.setDir(getDir());
-
+			
+			sounds.play("potatoShot", 1.0f);
+			
 			level.getProjectiles().add(potato);
 
 			lastShotTime = System.currentTimeMillis();
