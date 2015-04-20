@@ -9,7 +9,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
 public class LudumDare32  implements ApplicationListener{
 
-	public static final String TITLE = "LudumDare32";
+	public static final String TITLE = "Velocicopter";
 	private static final int WIDTH = 1280;
 	private static final int HEIGHT = 720;
 	public static final double SCALE = 1;

@@ -3,6 +3,8 @@ package io.github.versatilevelociraptors.ld32.entities;
 import io.github.versatilevelociraptors.ld32.audio.SoundManager;
 import io.github.versatilevelociraptors.ld32.level.Level;
 import io.github.versatilevelociraptors.ld32.level.Tile;
+import io.github.versatilevelociraptors.ld32.weapons.BananaGun;
+import io.github.versatilevelociraptors.ld32.weapons.NyanGun;
 import io.github.versatilevelociraptors.ld32.weapons.PotatoGun;
 import io.github.versatilevelociraptors.ld32.weapons.Weapon;
 
@@ -144,7 +146,7 @@ public class Player extends Mob implements Disposable{
 
 		// shoot shit
 		if(Gdx.input.isKeyPressed(Input.Keys.SPACE) && System.currentTimeMillis() - lastShotTime >= 1000 / weapon.getRateOfFire() && weapon.getAmmo() > 0){
-			Weapon.Projectile potato = weapon.new Projectile(new Texture("assets/images/potato.png"), level, new Vector2(3, 0), 20);
+			Weapon.Projectile potato = weapon.new Projectile(weapon.getProjectileImage(), level, new Vector2(3, 0), 20);
 			potato.setX(this.getX() + 20);
 			potato.setY(this.getY() + 16);
 			potato.setDir(getDir());
@@ -159,7 +161,14 @@ public class Player extends Mob implements Disposable{
 		// use weapon box
 		if(level.tileType((int)getX(), (int)getY()) == Tile.BOX_TILE){
 			weapon.dispose();
-			weapon = new PotatoGun();
+			double random = Math.random();
+			if(random < 1 / 3d){				
+				weapon = new PotatoGun();
+			}else if(random < 2 / 3d){
+				weapon = new NyanGun();
+			}else{
+				weapon = new BananaGun();
+			}
 		}
 	}
 
