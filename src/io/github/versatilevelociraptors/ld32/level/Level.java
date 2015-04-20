@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
@@ -201,7 +200,7 @@ public class Level implements Disposable{
 	/**
 	 * @return the player
 	 */
-	public Sprite getPlayer() {
+	public Player getPlayer() {
 		return player;
 	}
 

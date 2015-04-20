@@ -65,6 +65,9 @@ public class PlayState extends State {
             cam.zoom -= 0.02;
         }
 		level.update(dt);
+		if(!level.getPlayer().isAlive()){
+			manager.set(new EndGameState(manager));
+		}
 	}
 
 	@Override

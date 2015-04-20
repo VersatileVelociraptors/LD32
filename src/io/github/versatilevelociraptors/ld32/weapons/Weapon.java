@@ -1,8 +1,11 @@
 package io.github.versatilevelociraptors.ld32.weapons;
 
 import io.github.versatilevelociraptors.ld32.entities.Entity;
+import io.github.versatilevelociraptors.ld32.entities.Mob;
 import io.github.versatilevelociraptors.ld32.entities.Velociraptor;
 import io.github.versatilevelociraptors.ld32.level.Level;
+
+import java.util.LinkedList;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -35,6 +38,7 @@ public abstract class Weapon {
 		private Vector2 vector;
 		private float distanceTravelled;
 		private int dir;
+		private final LinkedList<Mob> victims = new LinkedList<Mob>();
 		
 		public Projectile(Texture image, Level level, Vector2 vector, int bulletSpeed) {
 			super(image, level);
@@ -72,8 +76,9 @@ public abstract class Weapon {
 			
 			// pwn the noobs (damage velociraptors)
 			for(Velociraptor velociraptor : level.getEnemies()){
-				if(getBoundingRectangle().overlaps(velociraptor.getBoundingRectangle())){
+				if(getBoundingRectangle().overlaps(velociraptor.getBoundingRectangle()) && !victims.contains(velociraptor)){
 					velociraptor.takeDamage(damage);
+					victims.add(velociraptor);
 				}
 			}
 		}
