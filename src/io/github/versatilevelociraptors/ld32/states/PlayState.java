@@ -29,7 +29,7 @@ public class PlayState extends State {
         player.setCenter(LudumDare32.getWidth() / 2, LudumDare32.getHeight() / 2);
         level.setPlayer(player);
         testEnemy = new Velociraptor(level);
-        level.setVelociraptor(testEnemy);
+        level.getEnemies().add(testEnemy);
         
         overlay = new Texture("assets/images/overlay.png");
         font = new BitmapFont(true);
@@ -47,8 +47,8 @@ public class PlayState extends State {
 		batch.draw(overlay, 0, 0);
 		float weaponY = LudumDare32.getHeight() - player.getWeapon().getImage().getHeight();// y coordinate of weapon image
 		batch.draw(player.getWeapon().getImage(), 0, weaponY);
-		font.draw(batch, " Ammo: " + player.getWeapon().getAmmo(), 0, weaponY - 30);
-		font.draw(batch," Weapon: " + player.getWeapon().getName(), 0, weaponY - 50);
+		font.draw(batch," Weapon: " + player.getWeapon().getName(), 0, weaponY - 30);
+		font.draw(batch, " Ammo: " + player.getWeapon().getAmmo(), 0, weaponY - 50);
 		font.draw(batch, " Health: " + player.getHealth(), 0, weaponY + - 70);
 		player.draw(batch);
 		batch.end();
@@ -71,6 +71,7 @@ public class PlayState extends State {
 	public void dispose() {
 		level.dispose();
 		font.dispose();
+		overlay.dispose();
 	}
 
 }

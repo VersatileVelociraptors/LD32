@@ -27,7 +27,7 @@ public class Level implements Disposable{
 	
 	private Tile tiles;
 	private Player player;
-	private Velociraptor enemyTest;
+	private final ArrayList<Velociraptor> enemies = new ArrayList<Velociraptor>();
 	private final ArrayList<Weapon.Projectile> projectiles = new ArrayList<Weapon.Projectile>();
 	
 	public Level(String path){
@@ -82,13 +82,22 @@ public class Level implements Disposable{
 		}
 	}
 	
-	public void update(float dt){		
+	public void update(float dt){
 		player.update(dt);
-		enemyTest.update(dt);
+		
 		for (Iterator<Projectile> iterator = projectiles.iterator(); iterator.hasNext();) {
 			Weapon.Projectile projectile = iterator.next();
-			if(projectile.alive())
+			if(projectile.isAlive())
 				projectile.update(dt);
+			else
+				iterator.remove();
+		}
+		
+		// update all the velociraptors if they are still alive
+		for(Iterator<Velociraptor> iterator = enemies.iterator(); iterator.hasNext();){
+			Velociraptor enemy = iterator.next();
+			if(enemy.isAlive())
+				enemy.update(dt);
 			else
 				iterator.remove();
 		}
@@ -121,7 +130,8 @@ public class Level implements Disposable{
 		}
 		
 		// (2150, 2150)-lower right (750, 2150)-lower left (750, 750)-upper left (2150, 750)-upper right
-		enemyTest.draw(sb);
+		for(Velociraptor enemy : enemies)
+			enemy.draw(sb);
 	}
 	
 	/**
@@ -201,16 +211,19 @@ public class Level implements Disposable{
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
-
-	public void setVelociraptor(Velociraptor dino){
-		enemyTest = dino;
-	}
 	
 	/**
 	 * @return the projectiles
 	 */
 	public ArrayList<Weapon.Projectile> getProjectiles() {
 		return projectiles;
+	}
+
+	/**
+	 * @return the enemies
+	 */
+	public ArrayList<Velociraptor> getEnemies() {
+		return enemies;
 	}
 
 	public void dispose(){

@@ -9,10 +9,10 @@ public abstract class Entity extends Sprite{
 
 	protected Level level;
 	
-	protected int speed;
+	protected int speed = 10;
 	protected int diag;
 	
-	protected boolean isAlive;
+	private boolean isAlive = true;
 	
 	/**
 	 * @param image
@@ -21,10 +21,23 @@ public abstract class Entity extends Sprite{
 		super(image);
 		this.level = level;
 		
-		speed = 10;
 		diag = Math.round((float) ((speed * (Math.sqrt(2))/4.0)));
 	}
 
 	public abstract void update(float dt);
+
+	/**
+	 * @return the isAlive
+	 */
+	public boolean isAlive() {
+		return isAlive;
+	}
+
+	/**
+	 * @param isAlive the isAlive to set
+	 */
+	public void setAlive(boolean isAlive) {
+		this.isAlive = isAlive;
+	}
 	
 }

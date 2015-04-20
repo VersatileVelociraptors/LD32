@@ -16,7 +16,7 @@ public abstract class Mob extends Entity {
 		health -= damage;
 		if(health <= 0){
 			// we're dead!
-			isAlive = false;
+			setAlive(false);
 		}
 	}
 

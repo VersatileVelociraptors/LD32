@@ -1,6 +1,7 @@
 package io.github.versatilevelociraptors.ld32.weapons;
 
 import io.github.versatilevelociraptors.ld32.entities.Entity;
+import io.github.versatilevelociraptors.ld32.entities.Velociraptor;
 import io.github.versatilevelociraptors.ld32.level.Level;
 
 import com.badlogic.gdx.graphics.Texture;
@@ -34,22 +35,16 @@ public abstract class Weapon {
 		private Vector2 vector;
 		private float distanceTravelled;
 		private int dir;
-		private int speed;
 		
 		public Projectile(Texture image, Level level, Vector2 vector, int bulletSpeed) {
 			super(image, level);
 			this.vector = vector;
 			this.speed = bulletSpeed;
-			isAlive = true;
 			ammo--;
 		}
 
 		public int getDamage(){
 			return damage;
-		}
-		
-		public boolean alive(){
-			return isAlive;
 		}
 		
 		public void setDir(int dir){
@@ -58,7 +53,6 @@ public abstract class Weapon {
 
 		@Override
 		public void update(float dt) {
-			
 			setRotation(getRotation() - 10);
 			
 			if(distanceTravelled < range){
@@ -73,7 +67,14 @@ public abstract class Weapon {
 				
 				distanceTravelled += speed;
 			}else{
-				isAlive = false;
+				setAlive(false);
+			}
+			
+			// pwn the noobs (damage velociraptors)
+			for(Velociraptor velociraptor : level.getEnemies()){
+				if(getBoundingRectangle().overlaps(velociraptor.getBoundingRectangle())){
+					velociraptor.takeDamage(damage);
+				}
 			}
 		}
 		
