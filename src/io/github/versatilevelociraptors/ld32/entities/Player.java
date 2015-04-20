@@ -138,7 +138,7 @@ public class Player extends Mob{
 		}
 
 		// shoot shit
-		if(Gdx.input.isKeyPressed(Input.Keys.SPACE) && System.currentTimeMillis() - lastShotTime >= 1000 / weapon.getRateOfFire()){
+		if(Gdx.input.isKeyPressed(Input.Keys.SPACE) && System.currentTimeMillis() - lastShotTime >= 1000 / weapon.getRateOfFire() && weapon.getAmmo() > 0){
 			Weapon.Projectile potato = weapon.new Projectile(new Texture("assets/images/potato.png"), level, new Vector2(3, 0), 20);
 			potato.setX(this.getX() + 20);
 			potato.setY(this.getY() + 16);
