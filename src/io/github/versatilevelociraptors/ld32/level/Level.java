@@ -2,6 +2,7 @@ package io.github.versatilevelociraptors.ld32.level;
 
 import io.github.versatilevelociraptors.ld32.LudumDare32;
 import io.github.versatilevelociraptors.ld32.entities.Player;
+import io.github.versatilevelociraptors.ld32.entities.Velociraptor;
 import io.github.versatilevelociraptors.ld32.weapons.Weapon;
 import io.github.versatilevelociraptors.ld32.weapons.Weapon.Projectile;
 
@@ -26,11 +27,13 @@ public class Level implements Disposable{
 	
 	private Tile tiles;
 	private Player player;
+	private Velociraptor enemyTest;
 	private final ArrayList<Weapon.Projectile> projectiles = new ArrayList<Weapon.Projectile>();
 	
 	public Level(String path){
 		tiles = new Tile();
 		loadLevel(path);
+		enemyTest = new Velociraptor(this);
 		
 		xOffset = -getWidthInPixels()/2;
 		yOffset = -getHeightInPixels()/2;
@@ -82,6 +85,7 @@ public class Level implements Disposable{
 	
 	public void update(float dt){		
 		player.update(dt);
+		enemyTest.update(dt);
 		for (Iterator<Projectile> iterator = projectiles.iterator(); iterator.hasNext();) {
 			Weapon.Projectile projectile = iterator.next();
 			if(projectile.alive())
@@ -116,6 +120,9 @@ public class Level implements Disposable{
 		for(Weapon.Projectile projectile : projectiles){
 			projectile.draw(sb);
 		}
+		enemyTest.setX(1500 + xOffset);
+		enemyTest.setY(1500 + yOffset);
+		enemyTest.draw(sb);
 	}
 	
 	/**
