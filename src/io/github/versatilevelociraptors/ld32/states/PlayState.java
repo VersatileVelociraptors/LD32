@@ -84,6 +84,7 @@ public class PlayState extends State {
 
 	@Override
 	public void dispose() {
+		player.dispose();
 		level.dispose();
 		font.dispose();
 		overlay.dispose();

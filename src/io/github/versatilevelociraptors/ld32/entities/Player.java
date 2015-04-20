@@ -13,8 +13,9 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Disposable;
 
-public class Player extends Mob{
+public class Player extends Mob implements Disposable{
 
 	private ArrayList<Vector2> walls;
 	private Weapon weapon;
@@ -157,6 +158,7 @@ public class Player extends Mob{
 		
 		// use weapon box
 		if(level.tileType((int)getX(), (int)getY()) == Tile.BOX_TILE){
+			weapon.dispose();
 			weapon = new PotatoGun();
 		}
 	}
@@ -173,6 +175,11 @@ public class Player extends Mob{
 	 */
 	protected void setWeapon(Weapon weapon) {
 		this.weapon = weapon;
+	}
+
+	@Override
+	public void dispose() {
+		weapon.dispose();
 	}
 
 }

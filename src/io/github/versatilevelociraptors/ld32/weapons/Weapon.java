@@ -10,8 +10,9 @@ import java.util.LinkedList;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Disposable;
 
-public abstract class Weapon {
+public abstract class Weapon implements Disposable{
 	
 	private Sprite image;
 	private Texture projectileImage;
@@ -113,6 +114,11 @@ public abstract class Weapon {
 			this.vector = vector;
 		}
 		
+	}
+	
+	@Override
+	public void dispose() {
+		projectileImage.dispose();
 	}
 	
 	/**
