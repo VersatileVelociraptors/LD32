@@ -34,8 +34,6 @@ public class Velociraptor extends Mob{
 		y+=speed*Math.sin(angle);
 		setX((float) (x + level.getXOffset()));
 		setY((float) (y + level.getYOffset()));
-		System.out.println(angle*180/Math.PI);
-		
 		
 		if(level.getPlayer().getBoundingRectangle().overlaps(getBoundingRectangle()) && System.currentTimeMillis() - lastHitTime >= HIT_DELAY){
 			// damage the player

@@ -20,6 +20,7 @@ public class PlayState extends State {
 	private Player player;
 	private BitmapFont font;
 	private MusicManager music;
+	private boolean fourtwenty;
 	
 	public PlayState(GameStateManager manager){
 		super(manager);
@@ -59,6 +60,9 @@ public class PlayState extends State {
 
 	@Override
 	protected void update(float dt){
+		
+		if(!fourtwenty)music.play("dosnegus");
+		
 		if (Gdx.input.isKeyPressed(Input.Keys.Z)) {
 			if(cam.zoom < 1)
             cam.zoom += 0.02;
@@ -70,11 +74,14 @@ public class PlayState extends State {
 		level.update(dt);
 		
 		if(level.tileType((int)player.getX(), (int)player.getY()) == Tile.SNOOP_TILE){
+			music.stop();
 			music.play("420");
+			fourtwenty = true;
 		}
 		
 		if(!level.getPlayer().isAlive()){
 			manager.set(new EndGameState(manager, level));
+			music.stop();
 		}
 	}
 

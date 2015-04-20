@@ -14,7 +14,7 @@ public abstract class Mob extends Entity {
 	
 	public void takeDamage(double damage){
 		health -= damage;
-		if(health <= 0){
+		if(health == 0){
 			// we're dead!
 			setAlive(false);
 		}
