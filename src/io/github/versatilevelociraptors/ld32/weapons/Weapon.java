@@ -62,12 +62,28 @@ public abstract class Weapon {
 			if(distanceTravelled < range){
 				if(dir == 0)
 					setY(getY() - speed);
+				if(dir == 1){
+					setX(getX() + speed);
+					setY(getY() - speed);
+				}
 				if(dir == 2)
 					setX(getX() + speed);
+				if(dir == 3){
+					setX(getX() + speed);
+					setY(getY() + speed);
+				}
 				if(dir == 4)
 					setY(getY() + speed);
+				if(dir == 5){
+					setX(getX() - speed);
+					setY(getY() + speed);
+				}
 				if(dir == 6)
 					setX(getX() - speed);
+				if(dir == 7){
+					setX(getX() - speed);
+					setY(getY() - speed);
+				}
 				
 				distanceTravelled += speed;
 			}else{
