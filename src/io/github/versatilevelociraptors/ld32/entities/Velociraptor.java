@@ -3,6 +3,7 @@ package io.github.versatilevelociraptors.ld32.entities;
 import io.github.versatilevelociraptors.ld32.level.Level;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector2;
 
 public class Velociraptor extends Mob{
 	
@@ -11,19 +12,30 @@ public class Velociraptor extends Mob{
 	
 	private double angle;
 	private long lastHitTime;
+	private int x,y;
 	
-	public Velociraptor(Level level) {
+	public Velociraptor(Level level, int x, int y) {
 		super(new Texture("assets/images/dino.png"), level);
 		this.flip(false, true);
+		this.x = x;
+		this.y = y;
+		setX(this.x + level.getXOffset()); 
+		setY(this.y + level.getYOffset());
+		speed = 9;
 	}
 
 	@Override
 	public void update(float dt) {
-		angle = Math.atan((level.getPlayer().getY() - getY())/(level.getPlayer().getX() - getX()));
-		setRotation((float) (angle*180/(2*Math.PI)));
-		setX((float) (getX() + speed*Math.cos(angle)));
-		setY((float) (getY() + speed*Math.sin(angle)));
-		System.out.println(getX() + " " + getY());
+		Vector2 player = new Vector2(level.getPlayer().getX(), level.getPlayer().getY());
+		Vector2 pos = new Vector2(getX(), getY());
+		angle = Math.atan2(player.y - pos.y, player.x - pos.x);
+		setRotation((float) (angle*180/(Math.PI)));
+		x+=speed*Math.cos(angle);
+		y+=speed*Math.sin(angle);
+		setX((float) (x + level.getXOffset()));
+		setY((float) (y + level.getYOffset()));
+		System.out.println(angle*180/Math.PI);
+		
 		
 		if(level.getPlayer().getBoundingRectangle().overlaps(getBoundingRectangle()) && System.currentTimeMillis() - lastHitTime >= HIT_DELAY){
 			// damage the player
