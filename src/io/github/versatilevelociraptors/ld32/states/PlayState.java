@@ -1,7 +1,6 @@
 package io.github.versatilevelociraptors.ld32.states;
 
 import io.github.versatilevelociraptors.ld32.LudumDare32;
-import io.github.versatilevelociraptors.ld32.audio.AudioManager;
 import io.github.versatilevelociraptors.ld32.entities.Player;
 import io.github.versatilevelociraptors.ld32.level.Level;
 

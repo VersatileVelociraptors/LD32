@@ -13,14 +13,14 @@ public class Velociraptor extends Mob{
 	public ArrayList<Node> open;
 	public ArrayList<Node> closed;
 	
+	private float xOnMap;
+	private float yOnMap;
+	
 	public ArrayList<Node> getPath(Vector2 start, Vector2 end){
 		open = new ArrayList<Node>();
 		closed = new ArrayList<Node>();
 		
 		ArrayList<Node> path = new ArrayList<Node>();
-		
-		//Node currentNode = new Node(getX(), getY());
-		
 		
 		return path;
 	}
@@ -34,6 +34,34 @@ public class Velociraptor extends Mob{
 	@Override
 	public void update(float dt) {
 		setRotation(getRotation() - 10);
+	}
+
+	/**
+	 * @return the yOnMap
+	 */
+	public float getyOnMap() {
+		return yOnMap;
+	}
+
+	/**
+	 * @param yOnMap the yOnMap to set
+	 */
+	public void setyOnMap(float yOnMap) {
+		this.yOnMap = yOnMap;
+	}
+
+	/**
+	 * @return the xOnMap
+	 */
+	public float getxOnMap() {
+		return xOnMap;
+	}
+
+	/**
+	 * @param xOnMap the xOnMap to set
+	 */
+	public void setxOnMap(float xOnMap) {
+		this.xOnMap = xOnMap;
 	}
 
 }
