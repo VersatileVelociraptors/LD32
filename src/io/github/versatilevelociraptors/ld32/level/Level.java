@@ -112,6 +112,7 @@ public class Level implements Disposable{
 		
 		if(System.currentTimeMillis() - lastSpawnTime >= SPAWN_DELAY){
 			spawnEnemy();// time to make more velociraptors
+			lastSpawnTime = System.currentTimeMillis();
 		}
 	}
 	
