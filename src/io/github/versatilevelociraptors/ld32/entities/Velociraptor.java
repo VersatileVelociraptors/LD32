@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Velociraptor extends Mob{
 	
-	public static final float DAMAGE = 10;
+	public static final float DAMAGE = 5;
 	public static final int HIT_DELAY = 300;
 	
 	private double angle;

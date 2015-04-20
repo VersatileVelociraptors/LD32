@@ -22,6 +22,8 @@ import com.badlogic.gdx.utils.Disposable;
 
 public class Level implements Disposable{
 	
+	public static final int SPAWN_DELAY = 5000;
+	
 	private int width, height;
 	private int[] tileMap; 
 	
@@ -30,6 +32,7 @@ public class Level implements Disposable{
 	private Tile tiles;
 	private Player player;
 	private int kills;
+	private long lastSpawnTime;
 	private final ArrayList<Velociraptor> enemies = new ArrayList<Velociraptor>();
 	private final ArrayList<Weapon.Projectile> projectiles = new ArrayList<Weapon.Projectile>();
 	
@@ -105,6 +108,10 @@ public class Level implements Disposable{
 				iterator.remove();
 				kills++;
 			}
+		}
+		
+		if(System.currentTimeMillis() - lastSpawnTime >= SPAWN_DELAY){
+			spawnEnemy();// time to make more velociraptors
 		}
 	}
 	
@@ -183,6 +190,12 @@ public class Level implements Disposable{
 		position.x = x*Tile.TILE_SIZE-xOffset;
 		position.y = y*Tile.TILE_SIZE-yOffset;
 		return position;
+	}
+	
+	public void spawnEnemy(){
+		int randomX = (int) (Math.random() * (2150 - 750) + 750);
+		int randomY = (int) (Math.random() * (2150 - 750) + 750);
+		enemies.add(new Velociraptor(this, randomX, randomY));
 	}
 	
 	
