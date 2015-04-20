@@ -150,4 +150,18 @@ public class Player extends Mob{
 		}
 	}
 
+	/**
+	 * @return the weapon
+	 */
+	public Weapon getWeapon() {
+		return weapon;
+	}
+
+	/**
+	 * @param weapon the weapon to set
+	 */
+	protected void setWeapon(Weapon weapon) {
+		this.weapon = weapon;
+	}
+
 }

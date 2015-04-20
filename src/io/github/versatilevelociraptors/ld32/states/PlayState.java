@@ -8,6 +8,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 
 public class PlayState extends State {
@@ -15,6 +16,7 @@ public class PlayState extends State {
 	private Level level;
 	private Texture overlay;
 	private Player player;
+	private BitmapFont font;
 
 	public PlayState(GameStateManager manager){
 		super(manager);
@@ -26,7 +28,7 @@ public class PlayState extends State {
         level.setPlayer(player);
         
         overlay = new Texture("assets/images/overlay.png");
-      
+        font = new BitmapFont(true);
 	}
 
 	@Override
@@ -39,6 +41,9 @@ public class PlayState extends State {
 		batch.begin();
 		level.render(batch);
 		batch.draw(overlay, 0, 0);
+		float weaponY = LudumDare32.getHeight() - player.getWeapon().getImage().getHeight();// y coordinate of weapon image
+		batch.draw(player.getWeapon().getImage(), 0, weaponY);
+		font.draw(batch, player.getWeapon().getName(), 0, weaponY - 30);
 		player.draw(batch);
 		batch.end();
 	}
@@ -59,6 +64,7 @@ public class PlayState extends State {
 	@Override
 	public void dispose() {
 		level.dispose();
+		font.dispose();
 	}
 
 }

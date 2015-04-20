@@ -1,33 +1,32 @@
 package io.github.versatilevelociraptors.ld32.weapons;
 
-import java.util.ArrayList;
-
 import io.github.versatilevelociraptors.ld32.entities.Entity;
 import io.github.versatilevelociraptors.ld32.level.Level;
-import io.github.versatilevelociraptors.ld32.level.Tile;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 
 public abstract class Weapon {
 	
-	private Texture image;
+	private Sprite image;
 	private Texture projectileImage;
+	private String name;
 	private final int damage;
 	private final int projectileSpeed;
 	private final int rateOfFire;
 	private final int range;
-	private final int wallOffset = 1540;
 	private int ammo;
 
-	public Weapon(int damage, int projectileSpeed, int ammo, int rateOfFire, int range, Texture projectileImage) {
+	public Weapon(int damage, int projectileSpeed, int ammo, int rateOfFire, int range, Texture projectileImage, Sprite image, String name) {
 		this.damage = damage;
 		this.projectileSpeed = projectileSpeed;
 		this.ammo = ammo;
 		this.rateOfFire = rateOfFire;
 		this.range = range;
 		this.projectileImage = projectileImage;
+		this.image = image;
+		this.name = name;
 	}
 
 	public class Projectile extends Entity{
@@ -36,14 +35,12 @@ public abstract class Weapon {
 		private float distanceTravelled;
 		private int dir;
 		private int speed;
-		private ArrayList<Vector2> walls;
 		
 		public Projectile(Texture image, Level level, Vector2 vector, int bulletSpeed) {
 			super(image, level);
 			this.vector = vector;
 			this.speed = bulletSpeed;
 			isAlive = true;
-			walls = level.getWalls();
 			ammo--;
 		}
 
@@ -61,29 +58,6 @@ public abstract class Weapon {
 
 		@Override
 		public void update(float dt) {
-			
-			for(Vector2 pos : walls){
-				Rectangle potatoRect = new Rectangle(getX(), getY(), getWidth(), getHeight());
-				Rectangle tileRect = new Rectangle(pos.x, pos.y, Tile.TILE_SIZE, Tile.TILE_SIZE);
-
-				if(potatoRect.getY() >= tileRect.getY() + level.getYOffset() - wallOffset && potatoRect.getY() <= tileRect.getY() + level.getYOffset() - wallOffset + Tile.TILE_SIZE){
-					if(potatoRect.getX() >= tileRect.getX() + level.getXOffset() - wallOffset && potatoRect.getX() <= tileRect.getX() + level.getXOffset() - wallOffset + Tile.TILE_SIZE)
-						setY(getY() -speed);
-				}else
-					if(potatoRect.getY() + potatoRect.getHeight()>= tileRect.getY() + level.getYOffset() - wallOffset && potatoRect.getY() + potatoRect.getHeight() <= tileRect.getY() + level.getYOffset() - wallOffset + Tile.TILE_SIZE){
-						if(potatoRect.getX() >= tileRect.getX() + level.getXOffset() - wallOffset && potatoRect.getX() <= tileRect.getX() + level.getXOffset() - wallOffset + Tile.TILE_SIZE)
-							setY(getY() + speed);
-					}
-				if(potatoRect.getX() >= tileRect.getX() + level.getXOffset() - wallOffset && potatoRect.getX() <= tileRect.getX() + level.getXOffset() - wallOffset + Tile.TILE_SIZE){
-					if(potatoRect.getY() >= tileRect.getY() + level.getYOffset() - wallOffset && potatoRect.getY() <= tileRect.getY() + level.getYOffset() - wallOffset + Tile.TILE_SIZE)
-						setX(getX()-speed);
-				}else{
-					if(potatoRect.getX() + potatoRect.getWidth()>= tileRect.getX() + level.getXOffset() - wallOffset && potatoRect.getX() + potatoRect.getWidth() <= tileRect.getX() + level.getXOffset() - wallOffset + Tile.TILE_SIZE){
-						if(potatoRect.getY() >= tileRect.getY() + level.getYOffset() - wallOffset && potatoRect.getY() <= tileRect.getY() + level.getYOffset() - wallOffset + Tile.TILE_SIZE)
-							setX(getX() + speed);
-					}
-				}
-			}
 			
 			setRotation(getRotation() - 10);
 			
@@ -122,14 +96,14 @@ public abstract class Weapon {
 	/**
 	 * @return the image
 	 */
-	public Texture getImage() {
+	public Sprite getImage() {
 		return image;
 	}
 	
 	/**
 	 * @param image the image to set
 	 */
-	public void setImage(Texture image) {
+	public void setImage(Sprite image) {
 		this.image = image;
 	}
 
@@ -187,6 +161,20 @@ public abstract class Weapon {
 	 */
 	protected void setProjectileImage(Texture projectileImage) {
 		this.projectileImage = projectileImage;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	protected void setName(String name) {
+		this.name = name;
 	}
 
 }
