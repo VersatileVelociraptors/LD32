@@ -43,7 +43,8 @@ public class PlayState extends State {
 		batch.draw(overlay, 0, 0);
 		float weaponY = LudumDare32.getHeight() - player.getWeapon().getImage().getHeight();// y coordinate of weapon image
 		batch.draw(player.getWeapon().getImage(), 0, weaponY);
-		font.draw(batch, player.getWeapon().getName(), 0, weaponY - 30);
+		font.draw(batch," Weapon: " + player.getWeapon().getName(), 0, weaponY - 30);
+		font.draw(batch, " Health: " + player.getHealth(), 0, weaponY + - 50);
 		player.draw(batch);
 		batch.end();
 	}
