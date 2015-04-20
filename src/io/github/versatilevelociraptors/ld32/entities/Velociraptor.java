@@ -1,39 +1,28 @@
 package io.github.versatilevelociraptors.ld32.entities;
 
 import io.github.versatilevelociraptors.ld32.level.Level;
-import io.github.versatilevelociraptors.ld32.util.Node;
-
-import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector2;
 
-public class Velociraptor extends Mob{
+public class Velociraptor extends Mob{	
 	
-	public ArrayList<Node> open;
-	public ArrayList<Node> closed;
+	private double angle;
 	
-	public ArrayList<Node> getPath(Vector2 start, Vector2 end){
-		open = new ArrayList<Node>();
-		closed = new ArrayList<Node>();
-		
-		ArrayList<Node> path = new ArrayList<Node>();
-		
-		//Node currentNode = new Node(getX(), getY());
-		
-		
-		return path;
-	}
-
 	public Velociraptor(Level level) {
 		super(new Texture("assets/images/dino.png"), level);
 		this.flip(false, true);
-		
 	}
 
 	@Override
 	public void update(float dt) {
-		setRotation(getRotation() - 10);
+		if(level.getPlayer() != null){
+			angle = Math.atan((level.getPlayer().getY() - getY())/(level.getPlayer().getX() - getX()));
+		}else{
+			System.out.println("asdf");
+		}
+		setRotation((float) (angle*180/(2*Math.PI)));
+		setX((float) (getX() + speed*Math.cos(angle) + level.getXOffset()));
+		setY((float) (getY() + speed*Math.sin(angle) + level.getYOffset()));
 	}
 
 }

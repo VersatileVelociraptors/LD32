@@ -33,7 +33,6 @@ public class Level implements Disposable{
 	public Level(String path){
 		tiles = new Tile();
 		loadLevel(path);
-		enemyTest = new Velociraptor(this);
 		
 		xOffset = -getWidthInPixels()/2;
 		yOffset = -getHeightInPixels()/2;
@@ -203,6 +202,10 @@ public class Level implements Disposable{
 		this.player = player;
 	}
 
+	public void setVelociraptor(Velociraptor dino){
+		enemyTest = dino;
+	}
+	
 	/**
 	 * @return the projectiles
 	 */

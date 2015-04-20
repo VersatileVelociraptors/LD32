@@ -1,8 +1,8 @@
 package io.github.versatilevelociraptors.ld32.states;
 
 import io.github.versatilevelociraptors.ld32.LudumDare32;
-import io.github.versatilevelociraptors.ld32.audio.AudioManager;
 import io.github.versatilevelociraptors.ld32.entities.Player;
+import io.github.versatilevelociraptors.ld32.entities.Velociraptor;
 import io.github.versatilevelociraptors.ld32.level.Level;
 
 import com.badlogic.gdx.Gdx;
@@ -18,6 +18,7 @@ public class PlayState extends State {
 	private Texture overlay;
 	private Player player;
 	private BitmapFont font;
+	private Velociraptor enemyTest;
 
 	public PlayState(GameStateManager manager){
 		super(manager);
@@ -27,6 +28,9 @@ public class PlayState extends State {
         player = new Player(level);
         player.setCenter(LudumDare32.getWidth() / 2, LudumDare32.getHeight() / 2);
         level.setPlayer(player);
+        
+        enemyTest = new Velociraptor(level);
+        level.setVelociraptor(enemyTest);
         
         overlay = new Texture("assets/images/overlay.png");
         font = new BitmapFont(true);
