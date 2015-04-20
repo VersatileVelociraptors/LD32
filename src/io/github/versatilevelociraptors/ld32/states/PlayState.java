@@ -31,7 +31,7 @@ public class PlayState extends State {
         player = new Player(level);
         player.setCenter(LudumDare32.getWidth() / 2, LudumDare32.getHeight() / 2);
         level.setPlayer(player);
-        testEnemy = new Velociraptor(level);
+    testEnemy = new Velociraptor(level, 1500, 1500);
         level.getEnemies().add(testEnemy);
         
         overlay = new Texture("assets/images/overlay.png");
