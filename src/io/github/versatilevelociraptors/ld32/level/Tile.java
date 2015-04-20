@@ -16,8 +16,9 @@ public class Tile {
 	public static final int FLOOR_TILE = 2;
 	public static final int WALL_TILE = 3;
 	public static final int BOX_TILE = 4;
-	public static final int SNOOP_TILE = 5;
-	public static final int WATER_TILE = 6;
+	public static final int PLAY420_TILE = 5;
+	public static final int STOP420_TILE = 6;
+	public static final int WATER_TILE = 7;
 	
 	private ArrayList<Texture> textures;
 	
@@ -28,7 +29,8 @@ public class Tile {
 		textures.add(new Texture("assets/images/floor.png"));
 		textures.add(new Texture("assets/images/wall.png"));
 		textures.add(new Texture("assets/images/box.png"));
-		textures.add(new Texture("assets/images/dogg.png"));
+		textures.add(new Texture("assets/images/play420.png"));
+		textures.add(new Texture("assets/images/stop420.png"));
 	}
 	
 	public void offset(int x, int y){

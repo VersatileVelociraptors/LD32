@@ -38,7 +38,7 @@ public class MusicManager extends AudioManager{
 
 	public void play(String name){
 		musics.get(name).play();
-		musics.get(name).setVolume(.5f);
+		musics.get(name).setVolume(.3f);
 	}
 
 	public void loop(String name){

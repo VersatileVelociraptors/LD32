@@ -69,11 +69,16 @@ public class PlayState extends State {
         }
 		level.update(dt);
 		
-		if(level.tileType((int)player.getX(), (int)player.getY()) == Tile.SNOOP_TILE){
+		if(level.tileType((int)player.getX(), (int)player.getY()) == Tile.PLAY420_TILE){
 			music.play("420");
 		}
 		
+		if(level.tileType((int)player.getX(), (int)player.getY()) == Tile.STOP420_TILE){
+			music.stop("420");
+		}
+		
 		if(!level.getPlayer().isAlive()){
+			music.stop("420");
 			manager.set(new EndGameState(manager));
 		}
 	}

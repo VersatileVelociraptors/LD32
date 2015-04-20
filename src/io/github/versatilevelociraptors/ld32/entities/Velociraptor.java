@@ -21,7 +21,7 @@ public class Velociraptor extends Mob{
 		this.y = y;
 		setX(this.x + level.getXOffset()); 
 		setY(this.y + level.getYOffset());
-		speed = 9;
+		speed /= 4 ;
 	}
 
 	@Override

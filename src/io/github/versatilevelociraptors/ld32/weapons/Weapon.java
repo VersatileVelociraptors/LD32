@@ -61,29 +61,35 @@ public abstract class Weapon implements Disposable{
 			setRotation(getRotation() - 10);
 			
 			if(distanceTravelled < range){
-				if(dir == 0)
+				switch(dir){
+				case 0:
 					setY(getY() - speed);
-				if(dir == 1){
+					break;
+				case 1:
 					setX(getX() + speed);
 					setY(getY() - speed);
-				}
-				if(dir == 2)
+					break;
+				case 2:
 					setX(getX() + speed);
-				if(dir == 3){
+					break;
+				case 3:
 					setX(getX() + speed);
 					setY(getY() + speed);
-				}
-				if(dir == 4)
+					break;
+				case 4:
 					setY(getY() + speed);
-				if(dir == 5){
+					break;
+				case 5:
 					setX(getX() - speed);
 					setY(getY() + speed);
-				}
-				if(dir == 6)
+					break;
+				case 6:
 					setX(getX() - speed);
-				if(dir == 7){
+					break;
+				case 7:
 					setX(getX() - speed);
 					setY(getY() - speed);
+					break;
 				}
 				
 				distanceTravelled += speed;
