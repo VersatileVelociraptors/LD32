@@ -17,8 +17,11 @@ public class Velociraptor extends Mob{
 	public void update(float dt) {
 		angle = Math.atan((level.getPlayer().getY() - getY())/(level.getPlayer().getX() - getX()));
 		setRotation((float) (angle*180/(2*Math.PI)));
-		setX((float) (getX() + speed*Math.cos(angle) + level.getXOffset()));
-		setY((float) (getY() + speed*Math.sin(angle) + level.getYOffset()));
+		setX((float) (getX() + speed*Math.cos(angle)));
+		setY((float) (getY() + speed*Math.sin(angle)));
+		System.out.println(getX() + " " + getY());
+	//	setX(1500 + level.getXOffset());
+	//	setY(1500 + level.getYOffset());
 	}
 
 }

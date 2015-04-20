@@ -34,12 +34,6 @@ public class Level implements Disposable{
 		tiles = new Tile();
 		loadLevel(path);
 		
-		enemyTest = new Velociraptor(this);
-		float randomX = (float) Math.random() * (2150 - 750) + 750;
-		float randomY = (float) Math.random() * (2150 - 750) + 750;
-		enemyTest.setX(randomX);
-		enemyTest.setY(randomY);
-		
 		xOffset = -getWidthInPixels()/2;
 		yOffset = -getHeightInPixels()/2;
 	}
