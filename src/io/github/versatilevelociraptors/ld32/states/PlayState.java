@@ -74,7 +74,7 @@ public class PlayState extends State {
 		}
 		
 		if(!level.getPlayer().isAlive()){
-			manager.set(new EndGameState(manager));
+			manager.set(new EndGameState(manager, level));
 		}
 	}
 
