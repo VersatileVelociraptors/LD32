@@ -7,7 +7,7 @@ public class NyanGun extends Weapon {
 
 	public NyanGun() {
 		super(100, 20, 10, 1, 500,
-				new Texture("assets/images/nyancat.png"), new Sprite(new Texture("assets/images/nyancat.png")), "Nyan Gun", new Texture("assets/images/nyangun.png"));
+				new Texture("assets/images/nyancat.png"), new Sprite(new Texture("assets/images/nyancat.png")), "Nyan Gun", new Texture("assets/images/nyanplayer.png"));
 		getImage().flip(false, true);
 		
 	}

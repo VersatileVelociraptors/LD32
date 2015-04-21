@@ -27,7 +27,7 @@ public class Player extends Mob implements Disposable{
 	private SoundManager sounds;
 
 	public Player(Level level) {
-		super(new Texture("assets/images/player.png"), level);
+		super(new Texture("assets/images/potatoplayer.png"), level);
 		walls = level.getWalls();
 		weapon = new PotatoGun();
 		sounds = new SoundManager();
