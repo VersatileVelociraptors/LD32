@@ -25,6 +25,7 @@ public class Player extends Mob implements Disposable{
 	private int dir;
 	private long lastShotTime;
 	private SoundManager sounds;
+	private int timer;
 
 	public Player(Level level) {
 		super(new Texture("assets/images/potatoplayer.png"), level);
@@ -45,6 +46,7 @@ public class Player extends Mob implements Disposable{
 
 	@Override
 	public void update(float dt) {
+		timer ++;
 		for(Vector2 pos : walls){
 			Rectangle playerRect = new Rectangle(getX(), getY(), getWidth(), getHeight());
 			Rectangle tileRect = new Rectangle(pos.x, pos.y, Tile.TILE_SIZE, Tile.TILE_SIZE);
@@ -160,6 +162,7 @@ public class Player extends Mob implements Disposable{
 		
 		// use weapon box
 		if(level.tileType((int)getX(), (int)getY()) == Tile.BOX_TILE){
+			if(timer > 5){
 			weapon.dispose();
 			double random = Math.random();
 			if(random < 1 / 3d){				
@@ -170,6 +173,8 @@ public class Player extends Mob implements Disposable{
 				weapon = new BananaGun();
 			}
 			setRegion(weapon.getPlayerTexture());
+			timer = 0;
+			}
 		}
 	}
 
