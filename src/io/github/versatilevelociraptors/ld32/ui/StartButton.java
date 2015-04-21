@@ -3,9 +3,9 @@ package io.github.versatilevelociraptors.ld32.ui;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class ImageButton extends Button{
+public class StartButton extends Button{
 
-	public ImageButton(Texture texture, float x, float y) {
+	public StartButton(Texture texture, float x, float y) {
 		super(texture, x, y);
 	}
 

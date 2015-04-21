@@ -1,6 +1,6 @@
 package io.github.versatilevelociraptors.ld32.states;
 
-import io.github.versatilevelociraptors.ld32.ui.ImageButton;
+import io.github.versatilevelociraptors.ld32.ui.StartButton;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -9,12 +9,12 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class MainMenuState extends State{
 	
-	private ImageButton playButton;
+	private StartButton playButton;
 	
 	public MainMenuState(GameStateManager manager) {
 		super(manager);
 		
-		playButton = new ImageButton(new Texture("assets/images/play.png"), 100, 100);
+		playButton = new StartButton(new Texture("assets/images/play.png"), 100, 100);
 	}
 
 	@Override
@@ -22,7 +22,7 @@ public class MainMenuState extends State{
         batch.setProjectionMatrix(cam.combined);
         
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		Gdx.gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 		batch.begin();
 		playButton.render(batch);
 		batch.end();
