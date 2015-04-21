@@ -18,8 +18,18 @@ public abstract class Button {
 		buttonTexture.flip(false, true);
 	}
 	
-	public abstract void update(float x, float y);
-	public abstract void render(SpriteBatch sb);
+
+	public void update(float x, float y) {
+		if(x > this.x && x < this.x + buttonTexture.getWidth()
+				&& y > this.y && y < this.y + buttonTexture.getHeight()){
+			clicked = true;
+		}
+	}
+
+	
+	public void render(SpriteBatch sb) {
+		sb.draw(buttonTexture, x, y);
+	}
 	
 	public boolean isClicked(){
 		return clicked;

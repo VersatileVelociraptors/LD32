@@ -6,6 +6,7 @@ import io.github.versatilevelociraptors.ld32.level.Level;
 import io.github.versatilevelociraptors.ld32.ui.RestartButton;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -51,6 +52,8 @@ public class EndGameState extends State{
 	@Override
 	protected void update(float dt) {
 		music.play("endscreen");
+		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT))
+			restartButton.update(Gdx.input.getX(), Gdx.input.getY());
 		if(restartButton.isClicked()){
 			music.stop("endscreen");
 			manager.pop();

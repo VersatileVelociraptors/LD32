@@ -5,7 +5,6 @@ import io.github.versatilevelociraptors.ld32.ui.StartButton;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 
 public class MainMenuState extends State{
 	
@@ -14,7 +13,7 @@ public class MainMenuState extends State{
 	public MainMenuState(GameStateManager manager) {
 		super(manager);
 		
-		playButton = new StartButton(new Texture("assets/images/play.png"), 100, 100);
+		playButton = new StartButton(100, 100);
 	}
 
 	@Override
