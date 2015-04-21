@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 public class BananaGun extends Weapon {
 
 	public BananaGun() {
-		super(45, 90, 80, 9, 250, new Texture("assets/images/banana.png"), new Sprite(new Texture("assets/images/banana.png")), "Banana Gun");
+		super(45, 90, 80, 9, 250, new Texture("assets/images/banana.png"), new Sprite(new Texture("assets/images/banana.png")), "Banana Gun", new Texture("assets/images/player.png"));
 	}
 
 }

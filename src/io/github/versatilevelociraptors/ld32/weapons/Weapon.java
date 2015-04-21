@@ -22,8 +22,9 @@ public abstract class Weapon implements Disposable{
 	private final int rateOfFire;
 	private final int range;
 	private int ammo;
+	private Texture playerTexture;
 
-	public Weapon(int damage, int projectileSpeed, int ammo, int rateOfFire, int range, Texture projectileImage, Sprite image, String name) {
+	public Weapon(int damage, int projectileSpeed, int ammo, int rateOfFire, int range, Texture projectileImage, Sprite image, String name, Texture playerTexture) {
 		this.damage = damage;
 		this.projectileSpeed = projectileSpeed;
 		this.ammo = ammo;
@@ -32,6 +33,7 @@ public abstract class Weapon implements Disposable{
 		this.projectileImage = projectileImage;
 		this.image = image;
 		this.name = name;
+		this.playerTexture = playerTexture;
 	}
 
 	public class Projectile extends Entity{
@@ -209,6 +211,20 @@ public abstract class Weapon implements Disposable{
 	 */
 	protected void setName(String name) {
 		this.name = name;
+	}
+
+	/**
+	 * @return the playerTexture
+	 */
+	public Texture getPlayerTexture() {
+		return playerTexture;
+	}
+
+	/**
+	 * @param playerTexture the playerTexture to set
+	 */
+	public void setPlayerTexture(Texture playerTexture) {
+		this.playerTexture = playerTexture;
 	}
 
 }

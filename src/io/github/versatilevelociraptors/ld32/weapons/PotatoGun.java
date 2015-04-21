@@ -10,7 +10,8 @@ public class PotatoGun extends Weapon {
 		super(50, 30, 30, 3, 900,
 				new Texture(Gdx.files.internal("assets/images/potato.png")),
 				new Sprite(new Texture(Gdx.files.internal("assets/images/potatogun.png"))),
-				"Potato Gun");
+				"Mr. Potato Gun",
+				new Texture("assets/images/player.png"));
 		getImage().flip(false, true);
 	}
 

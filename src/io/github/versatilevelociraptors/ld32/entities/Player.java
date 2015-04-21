@@ -169,6 +169,7 @@ public class Player extends Mob implements Disposable{
 			}else{
 				weapon = new BananaGun();
 			}
+			setRegion(weapon.getPlayerTexture());
 		}
 	}
 
