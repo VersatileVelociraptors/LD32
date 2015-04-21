@@ -4,8 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class RestartButton extends Button{
 
-	public RestartButton(Texture texture, float x, float y) {
-		super(texture, x, y);
+	public RestartButton(float x, float y) {
+		super(new Texture("assets/images/playagain.png"), x, y);
 	}
 
 }
